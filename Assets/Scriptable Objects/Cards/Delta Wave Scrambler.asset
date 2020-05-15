@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e30938b686db8a540896209acff6e31c, type: 3}
+  m_Name: Delta Wave Scrambler
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1446530323655599415, guid: 3601436b80a43d64486f63288269e718, type: 3}
+  title: Delta Wave Scrambler
+  description: 
+  cooldown: 0
+  choice: 0

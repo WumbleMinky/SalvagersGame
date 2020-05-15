@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e30938b686db8a540896209acff6e31c, type: 3}
+  m_Name: Phase
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 2427214591003122905, guid: 77fcbff91297e3b409287bcf408bb123, type: 3}
+  title: Phase
+  description: 
+  cooldown: 2
+  choice: 0

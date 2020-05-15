@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85856bf69e3102049b4fa616dbc3fb88, type: 3}
+  m_Name: Corners Starter
+  m_EditorClassIdentifier: 
+  displayName: Corners
+  forwardLeft:
+    layout: {fileID: 11400000, guid: ed1c49e75552505418cf500697cee449, type: 2}
+    rotations: 0
+  forward:
+    layout: {fileID: 11400000, guid: 7cbb290a256230548b581d95158059c9, type: 2}
+    rotations: 2
+  forwardRight:
+    layout: {fileID: 11400000, guid: ed1c49e75552505418cf500697cee449, type: 2}
+    rotations: 0
+  left:
+    layout: {fileID: 11400000, guid: 7cbb290a256230548b581d95158059c9, type: 2}
+    rotations: 1
+  right:
+    layout: {fileID: 11400000, guid: 7cbb290a256230548b581d95158059c9, type: 2}
+    rotations: 3
+  backLeft:
+    layout: {fileID: 11400000, guid: ed1c49e75552505418cf500697cee449, type: 2}
+    rotations: 0
+  back:
+    layout: {fileID: 11400000, guid: 7cbb290a256230548b581d95158059c9, type: 2}
+    rotations: 0
+  backRight:
+    layout: {fileID: 11400000, guid: ed1c49e75552505418cf500697cee449, type: 2}
+    rotations: 0

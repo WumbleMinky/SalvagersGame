@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e30938b686db8a540896209acff6e31c, type: 3}
+  m_Name: Adrenaline
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 2023443657222170814, guid: d2293dfe0c974204f9f4bda32ac13ea7, type: 3}
+  title: Adrenaline
+  description: 
+  cooldown: 0
+  choice: 1
