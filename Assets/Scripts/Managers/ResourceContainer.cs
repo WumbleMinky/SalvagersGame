@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,32 @@ public class ResourceContainer : MonoBehaviour
             return _inst;
         }
     }
+
+    //public Color[] playerColors = new Color[]
+    //{
+    //    Color.red,
+    //    Color.blue,
+    //    Color.green,
+    //    Color.magenta,
+    //    Color.white,
+    //    Color.yellow
+    //};
+
+    [Serializable]
+    public class PlayerColor
+    {
+        public string name;
+        public Color color;
+        public Sprite sprite;
+
+        public PlayerColor(string n, Color c, Sprite s)
+        {
+            name = n;
+            color = c;
+            sprite = s;
+        }
+    }
+    public PlayerColor[] playerColors;
 
     public TileLayout securityStationTile;
     public TileLayout[] tileLayouts = new TileLayout[5];

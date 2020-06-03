@@ -13,9 +13,20 @@ public class Card : ScriptableObject
     public int cooldown;
     public bool choice;
 
+    public CardLogic logic;
+
     public GameObject createPrefab(Transform parent = null)
     {
-        GameObject go = MonoBehaviour.Instantiate(prefab, parent).gameObject;
+        GameObject go = MonoBehaviour.Instantiate(prefab).gameObject;
+        PlayerHandLayoutController phlc = parent.GetComponent<PlayerHandLayoutController>();
+        if (phlc != null)
+        {
+            phlc.addItem(go);
+        }
+        else
+        {
+            go.transform.SetParent(parent);
+        }
         go.GetComponent<CardObject>().card = this;
         return go;
     }

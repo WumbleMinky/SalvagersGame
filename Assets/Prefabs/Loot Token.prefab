@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 5581314200835228309}
   - component: {fileID: 6284551107128140065}
   - component: {fileID: 938854701365406299}
-  - component: {fileID: -934261452824569802}
+  - component: {fileID: -1148794468076400183}
   m_Layer: 0
   m_Name: Loot Token
   m_TagString: Untagged
@@ -192,7 +192,7 @@ MonoBehaviour:
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
---- !u!114 &-934261452824569802
+--- !u!114 &-1148794468076400183
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,8 +201,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6018199735349317710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e73ce8e308938a40973e1ff89cd78d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 01a75e037bca37c44ae7622c0d2123cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  canSpace: 0

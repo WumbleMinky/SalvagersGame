@@ -4,11 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using Mirror;
+using UnityEngine.EventSystems;
 
-public class GameTile : NetworkBehaviour
+public class GameTile : NetworkBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+
+    public delegate void WallSelect(GameTile tile, TileWall wall);
+    public static event WallSelect WallSelectDelegate;
+    
+    public GameBoard board;
     public float rotateDuration = 0.5f;
-    public Dictionary<Vector2Int, Side> tileSides;
+    public Dictionary<Vector2Int, TileWall> tileSides;
     private bool rotating = false;
 
     [SyncVar(hook =nameof(updateLayout))]
@@ -21,41 +27,43 @@ public class GameTile : NetworkBehaviour
 
     public GameObject invalidImage;
     public GameObject jailObject;
+    public GameObject dock;
 
     public List<GameObject> tokenPositions;
     public List<GameObject> jailTokenPositions;
 
-    public struct Side
-    {
-        public GameObject Door;
-        public GameObject Solidwall;
-
-        public Side(Transform parent)
-        {
-            Door = null;
-            Solidwall = null;
-            foreach (Transform part in parent)
-            {
-                if (part.name.Equals("Solid Wall"))
-                    Solidwall = part.gameObject;
-                else if (part.name.Equals("Doorway"))
-                    Door = part.gameObject;
-            }
-        }
-
-        public bool isDoor()
-        {
-            return Door.activeInHierarchy;
-        }
-    }
+    //public LayerMask tileMask;
+    //public LayerMask wallMask;
+    private Collider myCollider;
 
     void Awake()
     {
-        tileSides = new Dictionary<Vector2Int, Side>();
-        tileSides.Add(Vector2Int.left, new Side(transform.Find("Left Side")));
-        tileSides.Add(Vector2Int.up, new Side(transform.Find("Forward Side")));
-        tileSides.Add(Vector2Int.right, new Side(transform.Find("Right Side")));
-        tileSides.Add(Vector2Int.down, new Side(transform.Find("Back Side")));
+        tileSides = new Dictionary<Vector2Int, TileWall>();
+        tileSides.Add(Vector2Int.left, transform.Find("Left Side").GetComponent<TileWall>());
+        tileSides.Add(Vector2Int.up, transform.Find("Forward Side").GetComponent<TileWall>());
+        tileSides.Add(Vector2Int.right, transform.Find("Right Side").GetComponent<TileWall>());
+        tileSides.Add(Vector2Int.down, transform.Find("Back Side").GetComponent<TileWall>());
+        myCollider = GetComponent<Collider>();
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (!isServer)
+        {
+            board = GameObject.FindObjectOfType<GameBoard>();
+            transform.SetParent(board.gameObject.transform);
+            board.clientAddTile(this);
+        }
+    }
+
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+        if (!isServer)
+        {
+            board.clientRemoveTile(gridPos);
+        }
     }
 
     #region Initial Creation
@@ -79,21 +87,37 @@ public class GameTile : NetworkBehaviour
     {
         if (rotating)
             return;
-        Dictionary<Vector2Int, Side> newDict = new Dictionary<Vector2Int, Side>();
+        
+        Dictionary<Vector2Int, TileWall> newDict = new Dictionary<Vector2Int, TileWall>();
         foreach (Vector2Int dir in tileSides.Keys)
         {
-            newDict.Add(rotateDirectionCW(dir), tileSides[dir]);
+            TileWall tw = tileSides[dir];
+            Vector2Int rotDir = VectorUtils.rotate90CW(dir);
+            tw.setDirection(rotDir);
+            newDict.Add(rotDir, tw);
         }
         tileSides = newDict;
+        RpcRotateWallDirections();
         if (animateRotation)
             StartCoroutine(RotateMe());
         else
             transform.rotation = Quaternion.Euler(transform.eulerAngles + Vector3.up * 90);
     }
 
-    private Vector2Int rotateDirectionCW(Vector2Int direction)
+    [ClientRpc]
+    private void RpcRotateWallDirections()
     {
-        return new Vector2Int(direction.y, -direction.x);
+        if (isServer)
+            return;
+        Dictionary<Vector2Int, TileWall> newDict = new Dictionary<Vector2Int, TileWall>();
+        foreach (Vector2Int dir in tileSides.Keys)
+        {
+            TileWall tw = tileSides[dir];
+            Vector2Int rotDir = VectorUtils.rotate90CW(dir);
+            tw.setDirection(rotDir);
+            newDict.Add(rotDir, tw);
+        }
+        tileSides = newDict;
     }
 
     IEnumerator RotateMe()
@@ -116,26 +140,31 @@ public class GameTile : NetworkBehaviour
         invalidImage.SetActive(newValue);
     }
 
-    [ClientRpc]
-    public void RpcUpdateParent(GameObject newParent)
-    {
-        transform.SetParent(newParent.transform);
-    }
-
     #endregion
 
 
 
     public void setDoor(Vector2Int direction)
     {
-        tileSides[direction].Door.SetActive(true);
-        tileSides[direction].Solidwall.SetActive(false);
+        tileSides[direction].activateDoor();
     }
 
     public void setWall(Vector2Int direction)
     {
-        tileSides[direction].Door.SetActive(false);
-        tileSides[direction].Solidwall.SetActive(true);
+        tileSides[direction].activateWall();
+    }
+
+    [ClientRpc]
+    public void RpcSetWallAsExterior(Vector2Int direction, bool val)
+    {
+        tileSides[direction].isExterior = val;
+        //if (val)
+        //{
+        //    foreach(Renderer rend in tileSides[direction].getActive().GetComponentsInChildren<Renderer>())
+        //    {
+        //        rend.material.color = Color.white;
+        //    }
+        //}
     }
 
     public bool isSideADoor(Vector2Int dir)
@@ -143,5 +172,69 @@ public class GameTile : NetworkBehaviour
         return tileSides[dir].isDoor();
     }
 
-    
+    [ClientRpc]
+    public void RpcEnableWallMouseDown()
+    {
+        foreach(TileWall tw in tileSides.Values)
+        {
+            tw.enablePointerDown();
+        }
+    }
+
+    [ClientRpc]
+    public void RpcDisableWallMouseDown()
+    {
+        foreach(TileWall tw in tileSides.Values)
+        {
+            tw.disablePointerDown();
+        }
+    }
+
+    public void enablePointerEnter()
+    {
+        myCollider.enabled = true;
+    }
+
+    public void disablePointerEnter()
+    {
+        myCollider.enabled = false;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (myCollider.enabled)
+        {
+
+        }
+        
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (myCollider.enabled)
+        {
+
+        }
+    }
+
+    public void wallClicked(TileWall wall)
+    {
+        WallSelectDelegate?.Invoke(this, wall);
+    }
+
+    public void setDock(Vector2Int wallDir)
+    {
+        if (tileSides[wallDir].isExterior && !dock.activeSelf)
+        {
+            foreach(TileWall wall in tileSides.Values)
+            {
+                wall.resetColor();
+                wall.disablePointerDown();
+            }
+            dock.SetActive(true);
+            dock.transform.SetParent(tileSides[wallDir].transform);
+            dock.transform.localRotation = Quaternion.identity;
+            tileSides[wallDir].activateWall();
+        }
+    }
 }

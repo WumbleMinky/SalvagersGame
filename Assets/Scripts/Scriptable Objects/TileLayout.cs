@@ -18,7 +18,17 @@ public class TileLayout : ScriptableObject
 
     public GameObject createPrefab(Transform parent = null)
     {
-        return Instantiate(prefab, parent).gameObject;
+        Transform go = Instantiate(prefab);
+        PlayerHandLayoutController phlc = parent.GetComponent<PlayerHandLayoutController>();
+        if (phlc != null)
+        {
+            phlc.addItem(go.gameObject);
+        }
+        else
+        {
+            go.SetParent(parent);
+        }
+        return go.gameObject;
     }
 }
 

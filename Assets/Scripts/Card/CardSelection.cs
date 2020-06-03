@@ -26,11 +26,14 @@ public class CardSelection : MonoBehaviour
     public delegate void NoCardSelected();
     public static event NoCardSelected NoCardSelectedDelegate;
 
+    public delegate void CardSelected(Card card);
+    public static event CardSelected CardSelectedDelegate;
+
     public GameObject previewPanel;
     public GameObject confirmCardButton;
 
-    public TileLayout selectedLayout;
-    public GameObject selectedCardGO;
+    TileLayout selectedLayout;
+    GameObject selectedCardGO;
     Card selectedCard;
     public bool _preventDeselect = false;
     int cardCount = 0;
@@ -52,6 +55,10 @@ public class CardSelection : MonoBehaviour
             cardsInHand.Add(cardObj);
             //TODO: Need to remove these delegates at some point
         }
+    }
+
+    public void showConfirmCardButton()
+    {
         confirmCardButton.SetActive(true);
     }
 
@@ -85,7 +92,10 @@ public class CardSelection : MonoBehaviour
 
     public void confirmCardSelection()
     {
-
+        if (selectedCard == null)
+            return;
+        disableAllCards();
+        CardSelectedDelegate?.Invoke(selectedCard);
     }
 
     public void enableOnlyMovementCards(bool includeHold = false)
@@ -110,12 +120,22 @@ public class CardSelection : MonoBehaviour
         }
     }
 
+    public void setCardInteractive(bool cardsEnabled)
+    {
+        foreach (CardObject card in cardsInHand)
+        {
+            card.setInteractable(cardsEnabled);
+        }
+    }
+
+    public void disableAllCards()
+    {
+        setCardInteractive(false);
+    }
+
     public void enableAllCards()
     {
-        foreach(CardObject card in cardsInHand)
-        {
-            card.setInteractable(true);
-        }
+        setCardInteractive(true);
     }
 
     #endregion

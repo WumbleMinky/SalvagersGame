@@ -7,10 +7,16 @@ using UnityEngine.UI;
 
 public class PlayerData : NetworkBehaviour
 {
+    public delegate void onLocalPlayerStart(PlayerData pd);
+    public static event onLocalPlayerStart startLocalPlayerCallback;
+
     public GameObject playerHandPanel;
     public GameObject tileEditPanel;
     public GameObject powerChoicePanel;
+    [SyncVar]
     public string playerName;
+    [SyncVar(hook = nameof(colorChanged))] 
+    public Color myColor = Color.white;
 
     [SyncVar]
     public bool ready = false;
@@ -23,10 +29,12 @@ public class PlayerData : NetworkBehaviour
     //player card hand
 
     //public GameObject selectedCard;
+    private LobbyPlayerName lobbyName;
     private GameBoard board;
     private GameManager gm;
     bool myTurn = false;
     public bool cardFocused = false;
+    public Token myToken;
 
     private void Awake()
     {
@@ -38,6 +46,31 @@ public class PlayerData : NetworkBehaviour
     {
         board = GameObject.FindObjectOfType<GameBoard>();
         gm = GameObject.FindObjectOfType<GameManager>();
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        startLocalPlayerCallback?.Invoke(this);
+    }
+
+    [Command]
+    public void CmdChangeColor(Color color)
+    {
+        if (!gm.isColorTaken(color))
+        {
+            myColor = color;
+        }
+    }
+
+    private void colorChanged(Color oldColor, Color newColor)
+    {
+        if (lobbyName != null)
+        {
+            lobbyName.transform.GetComponentInChildren<Image>().color = myColor;
+            
+        }
+            
     }
 
     #region Turn Control
@@ -75,7 +108,20 @@ public class PlayerData : NetworkBehaviour
     {
         ready = !ready;
         gm.readyClick(connectionToClient, ready, playerName);
-        
+    }
+
+    public void createLobbyName(int position, string value)
+    {
+        lobbyName = Instantiate(UIReference.Instance.playerLobbyNamePrefab, UIReference.Instance.lobbyNamePanel.transform).GetComponent<LobbyPlayerName>();
+        lobbyName.text = value;
+        lobbyName.transform.GetComponentInChildren<Image>().color = myColor;
+        RectTransform t = lobbyName.gameObject.GetComponent<RectTransform>();
+        t.position -= t.up * t.rect.height * (position);
+    }
+
+    public void updateLobbyName(string value)
+    {
+        lobbyName.text = value;
     }
 
     #endregion
@@ -111,7 +157,23 @@ public class PlayerData : NetworkBehaviour
     public void CmdTilePlaced(GameObject ghostTile, TileLayout layout)
     {
         if (myTurn)
+        {
             board.placeTileOnGhost(ghostTile, layout);
+            TargetSelectObject(board.unconfirmedTile.gameObject);
+        }
+    }
+
+    [TargetRpc]
+    public void TargetSelectObject(GameObject obj)
+    {
+        if (obj == null)
+        {
+            UIReference.Instance.ObjectSelector.deselect();
+        }
+        else
+        {
+            UIReference.Instance.ObjectSelector.selectObject(obj);
+        }
     }
 
     [Client]
@@ -138,7 +200,8 @@ public class PlayerData : NetworkBehaviour
         if (board.confirmTile())
         {
             RpcRemoveTileFromHand();
-            gm.nextPlayersTurn();
+            TargetSelectObject(null);
+            gm.playerFinishedPlacingTile();
         }
     }
 
@@ -152,6 +215,7 @@ public class PlayerData : NetworkBehaviour
     public void CmdCancelTile()
     {
         board.cancelUnconfirmedTile();
+        TargetSelectObject(null);
     }
 
     #endregion
@@ -176,6 +240,8 @@ public class PlayerData : NetworkBehaviour
         powerChoicePanel.GetComponent<PowerSelection>().addPowers(powers);
         PowerSelection.onConfirmDelegate += CmdChoosePowerCard;
         PowerSelection.onConfirmDelegate += hidePowerSelection;
+
+        GameTile.WallSelectDelegate += wallSelected;
     }
 
     private void hidePowerSelection(Card card)
@@ -189,20 +255,37 @@ public class PlayerData : NetworkBehaviour
     [TargetRpc]
     public void TargetProvideCards(NetworkConnection connection, Card[] cards)
     {
-        //cardHand = new List<GameObject>();
-        //foreach (Card c in cards)
-        //{
-        //    cardHand.Add(c.createPrefab(playerHandPanel.transform).gameObject);
-        //}
-        //LayoutRebuilder.ForceRebuildLayoutImmediate(playerHandPanel.GetComponent<RectTransform>());
         CardSelection.Instance.addCards(cards);
         CardSelection.Instance.enableOnlyMovementCards();
+        CardSelection.CardSelectedDelegate += CmdLootMoveCardConfirmed;
+    }
+
+    [Command]
+    private void CmdLootMoveCardConfirmed(Card card)
+    {
+        gm.getPlayerMoveChoice(connectionToClient, card);
     }
 
     #endregion
 
+    private void wallSelected(GameTile tile, TileWall wall)
+    {
+        //Called via a Delegate on the TileWall class. Passes the data to the server for verification then passed back by RPC for visuals.
+        if (myTurn)
+            CmdWallSelected(tile.gridPos, wall.direction);
+    }
+
+    [Command]
+    private void CmdWallSelected(Vector2Int tilePos, Vector2Int wallDirection)
+    {
+        gm.playerSelectsDock(tilePos, wallDirection);
+    }
 
 
-   
+    [ClientRpc]
+    public void RpcColourWall(Vector2Int tilePos, Vector2Int wallDirection)
+    {
+        board.getTileAt(tilePos).tileSides[wallDirection].changeColor(Color.red);
+    }
 
 }

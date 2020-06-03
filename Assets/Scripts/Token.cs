@@ -6,23 +6,35 @@ using Mirror;
 public class Token : NetworkBehaviour
 {
 
-    Vector2Int boardPosition;
+    public Vector2Int boardPosition { get; private set; }
+    public GameObject tileTokenPos { get; private set; }
+    public bool canSpace = false;
+    bool animating = false;
+    float moveDuration = 2;
+    List<Vector3> movementQueue = new List<Vector3>();
+    [SyncVar] Color myColor;
+    [SyncVar] bool customColor = false;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void OnStartClient()
     {
-        
+        base.OnStartClient();
+        if (customColor)
+        {
+            foreach (Renderer r in GetComponentsInChildren<Renderer>())
+            {
+                r.material.color = myColor;
+            }
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void setBoardPosition(Vector2Int pos)
+    public void setBoardPosition(Vector2Int pos, GameObject tokenPos = null)
     {
         boardPosition = pos;
+        if (tokenPos != null)
+        {
+            setTileTokenPos(tokenPos);
+        }
     }
 
     public void setBoardPosition(GameTile tile)
@@ -30,10 +42,54 @@ public class Token : NetworkBehaviour
         boardPosition = tile.gridPos;
     }
 
+    public void setTileTokenPos(GameObject tokenPos)
+    {
+        tileTokenPos = tokenPos;
+    }
+
+    public bool isAnimating()
+    {
+        return animating;
+    }
+
     [ClientRpc]
     public void RpcUpdateParent(GameObject newParent)
     {
-        Debug.Log("[Token] " + newParent);
         transform.SetParent(newParent.transform);
+    }
+
+    public void moveTo(Vector3 pos)
+    {
+        movementQueue.Add(pos);
+        if (!animating)
+        {
+            StartCoroutine(moveEnumerator());
+        }
+    }
+
+    public IEnumerator moveEnumerator()
+    {
+        animating = true;
+        Vector3 fromPos;
+        Vector3 pos;
+        while(movementQueue.Count > 0)
+        {
+            fromPos = transform.position;
+            pos = movementQueue[0];
+            for (float t = 0; t < 1; t += Time.deltaTime / moveDuration)
+            {
+                transform.position = Vector3.Lerp(fromPos, pos, t);
+                yield return null;
+            }
+            transform.position = pos;
+            movementQueue.RemoveAt(0);
+        }
+        animating = false;
+    }
+
+    public void setColor(Color color)
+    {
+        myColor = color;
+        customColor = true;
     }
 }

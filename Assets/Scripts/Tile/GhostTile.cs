@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class GhostTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
@@ -29,7 +30,8 @@ public class GhostTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             childRenderer.material.color = hightlightColor;
             i++;
         }
-        onMouseOverDelegate();
+        UIReference.Instance.ObjectSelector.selectObject(gameObject);
+        onMouseOverDelegate?.Invoke();
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -40,7 +42,8 @@ public class GhostTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             childRenderer.material.color = startColors[i];
             i++;
         }
-        onMouseExitDelegate();
+        UIReference.Instance.ObjectSelector.deselect();
+        onMouseExitDelegate?.Invoke();
     }
 
     void Start()

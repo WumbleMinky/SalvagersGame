@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8105572636782665146}
   - component: {fileID: 5791467855080836670}
   - component: {fileID: 8106395294748152682}
-  - component: {fileID: 2000282098631712384}
   m_Layer: 8
   m_Name: Jail Bar (9)
   m_TagString: Untagged
@@ -80,19 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2000282098631712384
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120650771929407374}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &132509113404588918
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +122,6 @@ GameObject:
   - component: {fileID: 8713573787956047742}
   - component: {fileID: 866785594788184348}
   - component: {fileID: 8042733254186383450}
-  - component: {fileID: 8662666277887428974}
   m_Layer: 8
   m_Name: Jail Bar (3)
   m_TagString: Untagged
@@ -205,19 +190,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8662666277887428974
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 379221159219913767}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &510207919317616823
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2360175812405803958}
   m_Layer: 8
-  m_Name: Positon B
+  m_Name: Positon A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,11 +214,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510207919317616823}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07, y: 0, z: -0.83}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3097906682727778686}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &536003399001775598
 GameObject:
@@ -257,6 +229,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7263381681381227576}
+  - component: {fileID: 6843261674976178699}
+  - component: {fileID: 663138734858525660}
   m_Layer: 8
   m_Name: Forward Side
   m_TagString: Untagged
@@ -280,6 +254,35 @@ Transform:
   m_Father: {fileID: 5937604903913958674}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &6843261674976178699
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536003399001775598}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 2, z: 10}
+  m_Center: {x: -4.75, y: 1, z: 0}
+--- !u!114 &663138734858525660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536003399001775598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84280cb11f2032644921ec17659ee8c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: 1}
+  isExterior: 0
+  doorGO: {fileID: 6300759966606904186}
+  wallGO: {fileID: 7691293025273593988}
 --- !u!1 &705703139785396837
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +378,6 @@ GameObject:
   - component: {fileID: 5970876179032290554}
   - component: {fileID: 3012895354887283251}
   - component: {fileID: 689684660929072423}
-  - component: {fileID: 5984691101427252785}
   m_Layer: 8
   m_Name: Jail Bar (10)
   m_TagString: Untagged
@@ -444,19 +446,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5984691101427252785
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1074898243323284277}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1112666634143744112
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +457,6 @@ GameObject:
   - component: {fileID: 5245789955796719668}
   - component: {fileID: 8983881869843807170}
   - component: {fileID: 9190439310759007472}
-  - component: {fileID: 3443459621830398665}
   m_Layer: 8
   m_Name: Right Wall
   m_TagString: Untagged
@@ -537,19 +525,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3443459621830398665
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112666634143744112}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1157760310918205447
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,7 +568,6 @@ GameObject:
   - component: {fileID: 8686036638206268421}
   - component: {fileID: 1359026758713994521}
   - component: {fileID: 5542049001293958017}
-  - component: {fileID: 5131893630831941851}
   m_Layer: 8
   m_Name: Left Wall
   m_TagString: Untagged
@@ -662,19 +636,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5131893630831941851
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173790534914822962}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1246154514109709899
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,7 +649,7 @@ GameObject:
   - component: {fileID: 3064704511234309316}
   - component: {fileID: 4963480122010960780}
   - component: {fileID: 4568783620791325386}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Billboard Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -796,6 +757,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5602881049723174342}
+  - component: {fileID: 5267146444157052234}
+  - component: {fileID: 118229262684967307}
   m_Layer: 8
   m_Name: Back Side
   m_TagString: Untagged
@@ -819,6 +782,35 @@ Transform:
   m_Father: {fileID: 5937604903913958674}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+--- !u!65 &5267146444157052234
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317452613749965476}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 2, z: 10}
+  m_Center: {x: -4.75, y: 1, z: 0}
+--- !u!114 &118229262684967307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317452613749965476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84280cb11f2032644921ec17659ee8c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: -1}
+  isExterior: 0
+  doorGO: {fileID: 132509113404588918}
+  wallGO: {fileID: 6665007310999110862}
 --- !u!1 &1492317317528655957
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,7 +822,6 @@ GameObject:
   - component: {fileID: 4433887033889742232}
   - component: {fileID: 5120466063922234181}
   - component: {fileID: 564760687211457061}
-  - component: {fileID: 7713203172006131300}
   m_Layer: 8
   m_Name: Jail Bar (8)
   m_TagString: Untagged
@@ -899,19 +890,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7713203172006131300
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1492317317528655957}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1601029533546640824
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,7 +901,6 @@ GameObject:
   - component: {fileID: 7420509618316117661}
   - component: {fileID: 394948980905625635}
   - component: {fileID: 6778669943807305687}
-  - component: {fileID: 9135293127435964953}
   m_Layer: 8
   m_Name: Jail Bar (3)
   m_TagString: Untagged
@@ -992,19 +969,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &9135293127435964953
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601029533546640824}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1754615633112598428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,7 +980,6 @@ GameObject:
   - component: {fileID: 9197166870331396349}
   - component: {fileID: 7185562461457350640}
   - component: {fileID: 213290541039527366}
-  - component: {fileID: 6264835248902650662}
   m_Layer: 8
   m_Name: Jail Bar (4)
   m_TagString: Untagged
@@ -1085,19 +1048,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6264835248902650662
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1754615633112598428}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1757317123649356644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,6 +1057,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8599812547179265435}
+  - component: {fileID: 577189278997458155}
+  - component: {fileID: 7134963996536856965}
   m_Layer: 8
   m_Name: Right Side
   m_TagString: Untagged
@@ -1130,6 +1082,35 @@ Transform:
   m_Father: {fileID: 5937604903913958674}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!65 &577189278997458155
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757317123649356644}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 2, z: 10}
+  m_Center: {x: -4.75, y: 1, z: 0}
+--- !u!114 &7134963996536856965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757317123649356644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84280cb11f2032644921ec17659ee8c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 1, y: 0}
+  isExterior: 0
+  doorGO: {fileID: 1157760310918205447}
+  wallGO: {fileID: 4405130416227082228}
 --- !u!1 &1793337593106840645
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,7 +1152,6 @@ GameObject:
   - component: {fileID: 2980405050225121407}
   - component: {fileID: 1505286493504645995}
   - component: {fileID: 7434476472195751244}
-  - component: {fileID: 5369210216740453622}
   m_Layer: 8
   m_Name: Jail Bar (7)
   m_TagString: Untagged
@@ -1240,19 +1220,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5369210216740453622
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1817062222429294423}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1901178443264725399
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,7 +1291,6 @@ GameObject:
   - component: {fileID: 389464427627596510}
   - component: {fileID: 1956466639085498476}
   - component: {fileID: 7311238870467590478}
-  - component: {fileID: 3716639675258157721}
   m_Layer: 8
   m_Name: Jail Bar (8)
   m_TagString: Untagged
@@ -1393,19 +1359,37 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3716639675258157721
-BoxCollider:
+--- !u!1 &2228236385212708385
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2074833390568292562}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8406571095992526368}
+  m_Layer: 0
+  m_Name: Dock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8406571095992526368
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2228236385212708385}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 60089684664719292}
+  m_Father: {fileID: 5937604903913958674}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2288793406628656549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1417,7 +1401,6 @@ GameObject:
   - component: {fileID: 3677048979485603010}
   - component: {fileID: 2873214631247878776}
   - component: {fileID: 9074761734993733999}
-  - component: {fileID: 1816613154546261646}
   m_Layer: 8
   m_Name: Jail Bar (9)
   m_TagString: Untagged
@@ -1486,19 +1469,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1816613154546261646
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2288793406628656549}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2495674709822529127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,7 +1480,6 @@ GameObject:
   - component: {fileID: 5259869146086744493}
   - component: {fileID: 6975315455879459051}
   - component: {fileID: 8774139302878401385}
-  - component: {fileID: 8032211123306609561}
   m_Layer: 8
   m_Name: Jail Bar (7)
   m_TagString: Untagged
@@ -1579,19 +1548,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8032211123306609561
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2495674709822529127}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2535577772599387848
 GameObject:
   m_ObjectHideFlags: 0
@@ -1645,7 +1601,6 @@ GameObject:
   - component: {fileID: 3498537516473087267}
   - component: {fileID: 4564482817930088507}
   - component: {fileID: 2928989888202726546}
-  - component: {fileID: 1209834492674941221}
   m_Layer: 8
   m_Name: Jail Bar (6)
   m_TagString: Untagged
@@ -1714,19 +1669,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1209834492674941221
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2587969186923292342}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2603644226606259449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,7 +1680,6 @@ GameObject:
   - component: {fileID: 1146156608756175467}
   - component: {fileID: 5004594293198701757}
   - component: {fileID: 3702836953673625882}
-  - component: {fileID: 2184675090242409136}
   m_Layer: 8
   m_Name: Jail Bar (1)
   m_TagString: Untagged
@@ -1807,19 +1748,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2184675090242409136
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2603644226606259449}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2607529102259511628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1921,7 +1849,6 @@ GameObject:
   - component: {fileID: 2707125755372418999}
   - component: {fileID: 4843002115650674197}
   - component: {fileID: 7336248083135357122}
-  - component: {fileID: 6832771767307316737}
   m_Layer: 8
   m_Name: Jail Bar (7)
   m_TagString: Untagged
@@ -1990,19 +1917,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6832771767307316737
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2940600182447238083}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2961326350177065585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2014,7 +1928,6 @@ GameObject:
   - component: {fileID: 4236352755563150678}
   - component: {fileID: 4510341946057833707}
   - component: {fileID: 618406981040764310}
-  - component: {fileID: 7942215973291599633}
   m_Layer: 8
   m_Name: Jail Bar (5)
   m_TagString: Untagged
@@ -2083,19 +1996,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7942215973291599633
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2961326350177065585}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2997150368170786689
 GameObject:
   m_ObjectHideFlags: 0
@@ -2107,7 +2007,6 @@ GameObject:
   - component: {fileID: 5398638592176821157}
   - component: {fileID: 4151737495203720661}
   - component: {fileID: 5411854280372571943}
-  - component: {fileID: 3917148833117399062}
   m_Layer: 8
   m_Name: Right Wall
   m_TagString: Untagged
@@ -2176,19 +2075,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3917148833117399062
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2997150368170786689}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3037091953906891716
 GameObject:
   m_ObjectHideFlags: 0
@@ -2230,7 +2116,6 @@ GameObject:
   - component: {fileID: 2447668020050103713}
   - component: {fileID: 6219056160645801849}
   - component: {fileID: 5944607278864442808}
-  - component: {fileID: 2572497269626615555}
   m_Layer: 8
   m_Name: Jail Bar (11)
   m_TagString: Untagged
@@ -2299,19 +2184,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2572497269626615555
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3174675184575629649}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3216065813962897828
 GameObject:
   m_ObjectHideFlags: 0
@@ -2323,7 +2195,6 @@ GameObject:
   - component: {fileID: 3155811510144616040}
   - component: {fileID: 781303046635643420}
   - component: {fileID: 5338693178148894468}
-  - component: {fileID: 5173210533749084277}
   m_Layer: 8
   m_Name: Jail Bar (6)
   m_TagString: Untagged
@@ -2392,19 +2263,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5173210533749084277
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3216065813962897828}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3323342643393350260
 GameObject:
   m_ObjectHideFlags: 0
@@ -2416,7 +2274,6 @@ GameObject:
   - component: {fileID: 7938802936046640074}
   - component: {fileID: 2968027747771842362}
   - component: {fileID: 7568568839816863394}
-  - component: {fileID: 3327614589705141638}
   m_Layer: 8
   m_Name: Jail Bar (8)
   m_TagString: Untagged
@@ -2485,19 +2342,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3327614589705141638
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3323342643393350260}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3375278031918393920
 GameObject:
   m_ObjectHideFlags: 0
@@ -2509,7 +2353,6 @@ GameObject:
   - component: {fileID: 904924292086260629}
   - component: {fileID: 8576285397430180971}
   - component: {fileID: 4988242722436968362}
-  - component: {fileID: 1955649778580474711}
   m_Layer: 8
   m_Name: Jail Bar (2)
   m_TagString: Untagged
@@ -2578,19 +2421,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1955649778580474711
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3375278031918393920}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3384630368854655071
 GameObject:
   m_ObjectHideFlags: 0
@@ -2602,7 +2432,6 @@ GameObject:
   - component: {fileID: 5309693993681719973}
   - component: {fileID: 5585891443387049339}
   - component: {fileID: 1438399563983255977}
-  - component: {fileID: 3871144588716125135}
   m_Layer: 8
   m_Name: Jail Bar (11)
   m_TagString: Untagged
@@ -2671,19 +2500,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3871144588716125135
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3384630368854655071}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3393211968323452373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2735,6 +2551,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6818449695547444433}
+  - component: {fileID: 3250973773362975655}
+  - component: {fileID: 3781633337485490703}
   m_Layer: 8
   m_Name: Left Side
   m_TagString: Untagged
@@ -2758,6 +2576,35 @@ Transform:
   m_Father: {fileID: 5937604903913958674}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3250973773362975655
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3540080653130869899}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 2, z: 10}
+  m_Center: {x: -4.75, y: 1, z: 0}
+--- !u!114 &3781633337485490703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3540080653130869899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84280cb11f2032644921ec17659ee8c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: -1, y: 0}
+  isExterior: 0
+  doorGO: {fileID: 8877494383748194125}
+  wallGO: {fileID: 3714198474034205019}
 --- !u!1 &3582997078275310388
 GameObject:
   m_ObjectHideFlags: 0
@@ -2769,7 +2616,6 @@ GameObject:
   - component: {fileID: 5758578054971679190}
   - component: {fileID: 7662514916389290922}
   - component: {fileID: 7409577443585567408}
-  - component: {fileID: 4280308138393106439}
   m_Layer: 8
   m_Name: Jail Bar (8)
   m_TagString: Untagged
@@ -2838,19 +2684,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4280308138393106439
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3582997078275310388}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3650164493584993664
 GameObject:
   m_ObjectHideFlags: 0
@@ -2892,7 +2725,6 @@ GameObject:
   - component: {fileID: 3394492897133154872}
   - component: {fileID: 2794557195410697213}
   - component: {fileID: 3068191022861148546}
-  - component: {fileID: 24153096915833193}
   m_Layer: 8
   m_Name: Solid Wall
   m_TagString: Untagged
@@ -2961,19 +2793,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &24153096915833193
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3714198474034205019}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3721220257616461648
 GameObject:
   m_ObjectHideFlags: 0
@@ -2985,7 +2804,6 @@ GameObject:
   - component: {fileID: 2505979296375966085}
   - component: {fileID: 2215061794740325263}
   - component: {fileID: 9035225448502532772}
-  - component: {fileID: 5624896855653993118}
   m_Layer: 8
   m_Name: Jail Bar (7)
   m_TagString: Untagged
@@ -3054,19 +2872,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5624896855653993118
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3721220257616461648}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3821934377534095538
 GameObject:
   m_ObjectHideFlags: 0
@@ -3078,7 +2883,6 @@ GameObject:
   - component: {fileID: 193882458289429504}
   - component: {fileID: 7638978481789817878}
   - component: {fileID: 4729839528911762069}
-  - component: {fileID: 1675485260603731437}
   m_Layer: 8
   m_Name: Jail Bar (5)
   m_TagString: Untagged
@@ -3147,19 +2951,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1675485260603731437
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3821934377534095538}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4134834545564258915
 GameObject:
   m_ObjectHideFlags: 0
@@ -3171,7 +2962,6 @@ GameObject:
   - component: {fileID: 581183370644339470}
   - component: {fileID: 8239828665073408161}
   - component: {fileID: 2445299828785736389}
-  - component: {fileID: 3204713134209856931}
   m_Layer: 8
   m_Name: Jail Bar (6)
   m_TagString: Untagged
@@ -3240,19 +3030,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3204713134209856931
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4134834545564258915}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4207332191121722741
 GameObject:
   m_ObjectHideFlags: 0
@@ -3302,7 +3079,6 @@ GameObject:
   - component: {fileID: 1687625099270091412}
   - component: {fileID: 2700995311469456857}
   - component: {fileID: 4581849641890150108}
-  - component: {fileID: 5899313415227063453}
   m_Layer: 8
   m_Name: Solid Wall
   m_TagString: Untagged
@@ -3371,19 +3147,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5899313415227063453
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4405130416227082228}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4471039769031102383
 GameObject:
   m_ObjectHideFlags: 0
@@ -3395,7 +3158,6 @@ GameObject:
   - component: {fileID: 4355190543242841235}
   - component: {fileID: 3991966658253992690}
   - component: {fileID: 4995141457287759709}
-  - component: {fileID: 2382774966616690375}
   m_Layer: 8
   m_Name: Jail Bar (3)
   m_TagString: Untagged
@@ -3464,19 +3226,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2382774966616690375
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4471039769031102383}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4510405906874499879
 GameObject:
   m_ObjectHideFlags: 0
@@ -3488,7 +3237,6 @@ GameObject:
   - component: {fileID: 4011761008980061123}
   - component: {fileID: 1662112605571659365}
   - component: {fileID: 1524805295312505283}
-  - component: {fileID: 4982773208819115018}
   m_Layer: 8
   m_Name: Jail Bar (4)
   m_TagString: Untagged
@@ -3557,19 +3305,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4982773208819115018
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4510405906874499879}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4582432004067583232
 GameObject:
   m_ObjectHideFlags: 0
@@ -3581,7 +3316,6 @@ GameObject:
   - component: {fileID: 8569039586518298041}
   - component: {fileID: 1424523505534924681}
   - component: {fileID: 2098046478592583447}
-  - component: {fileID: 3625902475998254315}
   m_Layer: 8
   m_Name: Jail Bar (5)
   m_TagString: Untagged
@@ -3650,19 +3384,100 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3625902475998254315
-BoxCollider:
+--- !u!1 &4793539467515873356
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4582432004067583232}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7595154187976222120}
+  - component: {fileID: 5676043412416897493}
+  - component: {fileID: 5528343271885568816}
+  - component: {fileID: 3554181160969810841}
+  m_Layer: 0
+  m_Name: Cylinder (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7595154187976222120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793539467515873356}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalScale: {x: 2.5, y: 0.3, z: 2.4999998}
+  m_Children: []
+  m_Father: {fileID: 60089684664719292}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!33 &5676043412416897493
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793539467515873356}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &5528343271885568816
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793539467515873356}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!136 &3554181160969810841
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793539467515873356}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &4915406752439885820
 GameObject:
   m_ObjectHideFlags: 0
@@ -3703,6 +3518,7 @@ Transform:
   - {fileID: 851409156187038526}
   - {fileID: 3097906682727778686}
   - {fileID: 5050035093232879376}
+  - {fileID: 8406571095992526368}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3715,7 +3531,7 @@ BoxCollider:
   m_GameObject: {fileID: 4915406752439885820}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 10, y: 2, z: 10}
   m_Center: {x: 0, y: 1.5, z: 0}
@@ -3733,15 +3549,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  board: {fileID: 0}
   rotateDuration: 0.8
   layout: {fileID: 0}
   gridPos: {x: 0, y: 0}
   invalid: 0
   invalidImage: {fileID: 8677206501264440515}
   jailObject: {fileID: 7546771168870981405}
+  dock: {fileID: 2228236385212708385}
   tokenPositions:
-  - {fileID: 6744081934436129413}
   - {fileID: 510207919317616823}
+  - {fileID: 6744081934436129413}
   - {fileID: 2010451325379718929}
   - {fileID: 1901178443264725399}
   - {fileID: 1793337593106840645}
@@ -3805,7 +3623,6 @@ GameObject:
   - component: {fileID: 3302215621361158660}
   - component: {fileID: 7440847656802507296}
   - component: {fileID: 8142137587513712782}
-  - component: {fileID: 5061380860704141870}
   m_Layer: 8
   m_Name: Jail Bar (2)
   m_TagString: Untagged
@@ -3874,19 +3691,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5061380860704141870
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4951477377103526109}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5003070021709591646
 GameObject:
   m_ObjectHideFlags: 0
@@ -3898,7 +3702,6 @@ GameObject:
   - component: {fileID: 2669821215008079711}
   - component: {fileID: 6399069886694476395}
   - component: {fileID: 5508978330216512780}
-  - component: {fileID: 6270749596521112721}
   m_Layer: 8
   m_Name: Jail Bar (11)
   m_TagString: Untagged
@@ -3967,19 +3770,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6270749596521112721
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5003070021709591646}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5358892269309184313
 GameObject:
   m_ObjectHideFlags: 0
@@ -4037,8 +3827,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 700082746410649447}
   - {fileID: 2360175812405803958}
+  - {fileID: 700082746410649447}
   - {fileID: 4921174945617124417}
   - {fileID: 7319140330147938170}
   - {fileID: 486901623132746376}
@@ -4062,7 +3852,6 @@ GameObject:
   - component: {fileID: 82165908606819196}
   - component: {fileID: 4869175880925484809}
   - component: {fileID: 8466964472115799396}
-  - component: {fileID: 241779986418886688}
   m_Layer: 8
   m_Name: Jail Bar (5)
   m_TagString: Untagged
@@ -4131,19 +3920,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &241779986418886688
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5728012442611401291}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5829353192923640025
 GameObject:
   m_ObjectHideFlags: 0
@@ -4185,7 +3961,6 @@ GameObject:
   - component: {fileID: 4236998591988845765}
   - component: {fileID: 5091130786807731614}
   - component: {fileID: 6382823550497981056}
-  - component: {fileID: 7716513973550628426}
   m_Layer: 8
   m_Name: Jail Bar (1)
   m_TagString: Untagged
@@ -4254,19 +4029,100 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7716513973550628426
-BoxCollider:
+--- !u!1 &6073681406581817810
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6073374440021354214}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3237269344857146230}
+  - component: {fileID: 4205961570539831179}
+  - component: {fileID: 7091941922644738002}
+  - component: {fileID: 6124587373102616311}
+  m_Layer: 8
+  m_Name: Cylinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3237269344857146230
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6073681406581817810}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 0.75000006, z: 2}
+  m_Children: []
+  m_Father: {fileID: 60089684664719292}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!33 &4205961570539831179
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6073681406581817810}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &7091941922644738002
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6073681406581817810}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 24888d68cffa4d442ae54423a34bd196, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!136 &6124587373102616311
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6073681406581817810}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &6300759966606904186
 GameObject:
   m_ObjectHideFlags: 0
@@ -4310,7 +4166,6 @@ GameObject:
   - component: {fileID: 5697723815041766365}
   - component: {fileID: 7283966572793628583}
   - component: {fileID: 3911600992864483486}
-  - component: {fileID: 4392112661879721765}
   m_Layer: 8
   m_Name: Left Wall
   m_TagString: Untagged
@@ -4379,19 +4234,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4392112661879721765
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6531259196183586722}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6581431625451492687
 GameObject:
   m_ObjectHideFlags: 0
@@ -4433,7 +4275,6 @@ GameObject:
   - component: {fileID: 9091730270944143069}
   - component: {fileID: 6223143911897113034}
   - component: {fileID: 527655578909177756}
-  - component: {fileID: 4289490192775848256}
   m_Layer: 8
   m_Name: Solid Wall
   m_TagString: Untagged
@@ -4502,19 +4343,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4289490192775848256
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6665007310999110862}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6744081934436129413
 GameObject:
   m_ObjectHideFlags: 0
@@ -4525,7 +4353,7 @@ GameObject:
   m_Component:
   - component: {fileID: 700082746410649447}
   m_Layer: 8
-  m_Name: Positon A
+  m_Name: Positon B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4543,7 +4371,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3097906682727778686}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6818120048757781568
 GameObject:
@@ -4556,7 +4384,6 @@ GameObject:
   - component: {fileID: 4584004217228577155}
   - component: {fileID: 4673564580227278166}
   - component: {fileID: 988549962528446865}
-  - component: {fileID: 1283433885227158251}
   m_Layer: 8
   m_Name: Jail Bar (3)
   m_TagString: Untagged
@@ -4625,19 +4452,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1283433885227158251
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6818120048757781568}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6840680264633653343
 GameObject:
   m_ObjectHideFlags: 0
@@ -4649,7 +4463,6 @@ GameObject:
   - component: {fileID: 5477061174856089780}
   - component: {fileID: 429524350847409054}
   - component: {fileID: 5588462783538296943}
-  - component: {fileID: 5171613256740380310}
   m_Layer: 8
   m_Name: Jail Bar (1)
   m_TagString: Untagged
@@ -4718,19 +4531,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5171613256740380310
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6840680264633653343}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6900154270917120845
 GameObject:
   m_ObjectHideFlags: 0
@@ -4742,7 +4542,6 @@ GameObject:
   - component: {fileID: 7068071208509702750}
   - component: {fileID: 1387865249637727113}
   - component: {fileID: 3795160733908241325}
-  - component: {fileID: 8419567400071523664}
   m_Layer: 8
   m_Name: Jail Bar (2)
   m_TagString: Untagged
@@ -4811,19 +4610,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8419567400071523664
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6900154270917120845}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6902722597107301804
 GameObject:
   m_ObjectHideFlags: 0
@@ -4835,7 +4621,6 @@ GameObject:
   - component: {fileID: 5903695240796455798}
   - component: {fileID: 6716225494269926551}
   - component: {fileID: 7039976425852839921}
-  - component: {fileID: 8198325797158580843}
   m_Layer: 8
   m_Name: Jail Bar (10)
   m_TagString: Untagged
@@ -4904,19 +4689,38 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8198325797158580843
-BoxCollider:
+--- !u!1 &7014291284691005864
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902722597107301804}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 60089684664719292}
+  m_Layer: 0
+  m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &60089684664719292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014291284691005864}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -5, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3237269344857146230}
+  - {fileID: 7595154187976222120}
+  m_Father: {fileID: 8406571095992526368}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &7325603323761872699
 GameObject:
   m_ObjectHideFlags: 0
@@ -4928,7 +4732,6 @@ GameObject:
   - component: {fileID: 3524788906980635273}
   - component: {fileID: 6915387143074527652}
   - component: {fileID: 5173221043072962155}
-  - component: {fileID: 2633397801298606069}
   m_Layer: 8
   m_Name: Jail Bar (10)
   m_TagString: Untagged
@@ -4997,19 +4800,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2633397801298606069
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7325603323761872699}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7334583245249089599
 GameObject:
   m_ObjectHideFlags: 0
@@ -5021,7 +4811,6 @@ GameObject:
   - component: {fileID: 3700410694473476349}
   - component: {fileID: 8007463790339901271}
   - component: {fileID: 3983099049250962286}
-  - component: {fileID: 3552573104229811947}
   m_Layer: 8
   m_Name: Jail Bar
   m_TagString: Untagged
@@ -5090,19 +4879,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3552573104229811947
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7334583245249089599}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7389401951007742018
 GameObject:
   m_ObjectHideFlags: 0
@@ -5114,7 +4890,6 @@ GameObject:
   - component: {fileID: 3232932998223013194}
   - component: {fileID: 6367615006630601821}
   - component: {fileID: 5318343212409348735}
-  - component: {fileID: 8912772078331760348}
   m_Layer: 8
   m_Name: Jail Bar (11)
   m_TagString: Untagged
@@ -5183,19 +4958,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8912772078331760348
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7389401951007742018}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7432307249509259199
 GameObject:
   m_ObjectHideFlags: 0
@@ -5207,7 +4969,6 @@ GameObject:
   - component: {fileID: 5341710043240089940}
   - component: {fileID: 6157480167033230376}
   - component: {fileID: 6154073147180935162}
-  - component: {fileID: 4096416870219272279}
   m_Layer: 8
   m_Name: Jail Bar (4)
   m_TagString: Untagged
@@ -5276,19 +5037,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4096416870219272279
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7432307249509259199}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7465653501722484118
 GameObject:
   m_ObjectHideFlags: 0
@@ -5300,7 +5048,6 @@ GameObject:
   - component: {fileID: 8333718458397521877}
   - component: {fileID: 1893552295038034533}
   - component: {fileID: 8724391886094733835}
-  - component: {fileID: 7333519977479958614}
   m_Layer: 8
   m_Name: Left Wall
   m_TagString: Untagged
@@ -5369,19 +5116,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7333519977479958614
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7465653501722484118}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7546771168870981405
 GameObject:
   m_ObjectHideFlags: 0
@@ -5457,7 +5191,6 @@ GameObject:
   - component: {fileID: 1013004611270637255}
   - component: {fileID: 3618871065477096381}
   - component: {fileID: 1527777518121286576}
-  - component: {fileID: 476032310649622505}
   m_Layer: 8
   m_Name: Solid Wall
   m_TagString: Untagged
@@ -5526,19 +5259,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &476032310649622505
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7691293025273593988}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7789194125428991258
 GameObject:
   m_ObjectHideFlags: 0
@@ -5550,7 +5270,6 @@ GameObject:
   - component: {fileID: 1965806201906168252}
   - component: {fileID: 8557239392112326597}
   - component: {fileID: 2378280771335032622}
-  - component: {fileID: 3447427897071077081}
   m_Layer: 8
   m_Name: Right Wall
   m_TagString: Untagged
@@ -5619,19 +5338,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3447427897071077081
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7789194125428991258}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7811833300985298050
 GameObject:
   m_ObjectHideFlags: 0
@@ -5643,7 +5349,6 @@ GameObject:
   - component: {fileID: 2690315610496997615}
   - component: {fileID: 689858694691001054}
   - component: {fileID: 8494198785337446248}
-  - component: {fileID: 705304460002119743}
   m_Layer: 8
   m_Name: Left Wall
   m_TagString: Untagged
@@ -5712,19 +5417,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &705304460002119743
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7811833300985298050}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7875798833272895437
 GameObject:
   m_ObjectHideFlags: 0
@@ -5767,7 +5459,6 @@ GameObject:
   - component: {fileID: 2227600610027635670}
   - component: {fileID: 3202975880664454387}
   - component: {fileID: 3005391315299587881}
-  - component: {fileID: 7579657853659929329}
   m_Layer: 8
   m_Name: Jail Bar
   m_TagString: Untagged
@@ -5836,19 +5527,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7579657853659929329
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7891139908598496948}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7981612432585067404
 GameObject:
   m_ObjectHideFlags: 0
@@ -5860,7 +5538,6 @@ GameObject:
   - component: {fileID: 5592879781037790911}
   - component: {fileID: 117279006371646577}
   - component: {fileID: 2949833996754246888}
-  - component: {fileID: 2740728099701260827}
   m_Layer: 8
   m_Name: Jail Bar (9)
   m_TagString: Untagged
@@ -5929,19 +5606,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2740728099701260827
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7981612432585067404}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8357109494947036195
 GameObject:
   m_ObjectHideFlags: 0
@@ -5953,7 +5617,6 @@ GameObject:
   - component: {fileID: 1267401984629969239}
   - component: {fileID: 8787152535998773781}
   - component: {fileID: 8352103859055849782}
-  - component: {fileID: 3913119006195782734}
   m_Layer: 8
   m_Name: Jail Bar
   m_TagString: Untagged
@@ -6022,19 +5685,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3913119006195782734
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8357109494947036195}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8442184105922868693
 GameObject:
   m_ObjectHideFlags: 0
@@ -6046,7 +5696,6 @@ GameObject:
   - component: {fileID: 1105528737445242750}
   - component: {fileID: 2384867596045242891}
   - component: {fileID: 5609610896356267168}
-  - component: {fileID: 6314275457463849846}
   m_Layer: 8
   m_Name: Right Wall
   m_TagString: Untagged
@@ -6115,19 +5764,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6314275457463849846
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8442184105922868693}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8449313210457084109
 GameObject:
   m_ObjectHideFlags: 0
@@ -6229,7 +5865,6 @@ GameObject:
   - component: {fileID: 6681057279137049412}
   - component: {fileID: 2477818820837494726}
   - component: {fileID: 724524007977649905}
-  - component: {fileID: 3120981848466766628}
   m_Layer: 8
   m_Name: Jail Bar (10)
   m_TagString: Untagged
@@ -6298,19 +5933,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3120981848466766628
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8554708332881126094}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8623925786901598549
 GameObject:
   m_ObjectHideFlags: 0
@@ -6322,7 +5944,6 @@ GameObject:
   - component: {fileID: 2605192915565050267}
   - component: {fileID: 6522132042134005237}
   - component: {fileID: 4981467006283764295}
-  - component: {fileID: 2970393307980809382}
   m_Layer: 8
   m_Name: Jail Bar (2)
   m_TagString: Untagged
@@ -6391,19 +6012,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2970393307980809382
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8623925786901598549}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8677206501264440515
 GameObject:
   m_ObjectHideFlags: 0
@@ -6415,7 +6023,7 @@ GameObject:
   - component: {fileID: 301451887493098126}
   - component: {fileID: 6602775224977395462}
   - component: {fileID: 8871298699104312093}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Invalid Tile Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6489,7 +6097,6 @@ GameObject:
   - component: {fileID: 1758608219088810146}
   - component: {fileID: 5232657730221182117}
   - component: {fileID: 9182499150725869308}
-  - component: {fileID: 2621951327485183706}
   m_Layer: 8
   m_Name: Jail Bar (9)
   m_TagString: Untagged
@@ -6558,19 +6165,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2621951327485183706
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8697758472500789612}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8761950239912668131
 GameObject:
   m_ObjectHideFlags: 0
@@ -6582,7 +6176,6 @@ GameObject:
   - component: {fileID: 6667067363955726674}
   - component: {fileID: 4579221582304552221}
   - component: {fileID: 4437238923116631067}
-  - component: {fileID: 8674999994369500076}
   m_Layer: 8
   m_Name: Floor
   m_TagString: Untagged
@@ -6651,19 +6244,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8674999994369500076
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8761950239912668131}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8821870028485469633
 GameObject:
   m_ObjectHideFlags: 0
@@ -6675,7 +6255,6 @@ GameObject:
   - component: {fileID: 2946502075388424829}
   - component: {fileID: 3143895350484811826}
   - component: {fileID: 29872652603441902}
-  - component: {fileID: 5695948611604540694}
   m_Layer: 8
   m_Name: Jail Bar
   m_TagString: Untagged
@@ -6744,19 +6323,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5695948611604540694
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8821870028485469633}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8877494383748194125
 GameObject:
   m_ObjectHideFlags: 0
@@ -6800,7 +6366,6 @@ GameObject:
   - component: {fileID: 2057318867720721208}
   - component: {fileID: 8970862721038980943}
   - component: {fileID: 914056079153285527}
-  - component: {fileID: 3855908512559722828}
   m_Layer: 8
   m_Name: Jail Bar (1)
   m_TagString: Untagged
@@ -6869,19 +6434,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3855908512559722828
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9044814650388537365}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9081560727493932624
 GameObject:
   m_ObjectHideFlags: 0
@@ -6893,7 +6445,6 @@ GameObject:
   - component: {fileID: 3566131844072836123}
   - component: {fileID: 2586801236881867614}
   - component: {fileID: 2762153066749634577}
-  - component: {fileID: 8393188825763552614}
   m_Layer: 8
   m_Name: Jail Bar (6)
   m_TagString: Untagged
@@ -6962,19 +6513,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8393188825763552614
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9081560727493932624}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9131413614024039538
 GameObject:
   m_ObjectHideFlags: 0
@@ -7046,7 +6584,6 @@ GameObject:
   - component: {fileID: 5115071376319798270}
   - component: {fileID: 1603151003477349276}
   - component: {fileID: 2764963179419607234}
-  - component: {fileID: 6109145100680690415}
   m_Layer: 8
   m_Name: Jail Bar (4)
   m_TagString: Untagged
@@ -7115,16 +6652,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6109145100680690415
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9192236777091304997}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
