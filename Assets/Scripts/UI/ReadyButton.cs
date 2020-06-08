@@ -5,12 +5,12 @@ using Mirror;
 
 public class ReadyButton : MonoBehaviour
 {
-    PlayerData player;
+    RoomPlayer player;
 
     public void onClick()
     {
         if (player == null)
-            player = NetworkClient.connection.identity.GetComponent<PlayerData>();
-        player.CmdToggleReadyState();
+            player = NetworkClient.connection.identity.GetComponent<RoomPlayer>();
+        player.CmdChangeReadyState(!player.readyToBegin);
     }
 }

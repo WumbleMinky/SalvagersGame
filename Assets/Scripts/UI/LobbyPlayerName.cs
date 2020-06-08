@@ -3,26 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LobbyPlayerName : Text
+public class LobbyPlayerName : MonoBehaviour
 {
-
-    PlayerData myPlayer;
     public Image colorIndicator;
+    public Text textComponent;
 
-    public void setPlayer(PlayerData player)
-    {
-        myPlayer = player;
-        colorIndicator = transform.GetComponentInChildren<Image>();
-    }
+    public string text { get { return textComponent.text; } set { textComponent.text = value; } }
+    public Color color { get {return colorIndicator.color; } set {colorIndicator.color = value; } }
 
-    private void Update()
-    {
-        //if (myPlayer == null)
-        //    return;
-
-        //text = myPlayer.playerName;
-        //colorIndicator.color = myPlayer.myColor;
-        //if (myPlayer.ready)
-        //    text = text + " [READY]";
-    }
 }

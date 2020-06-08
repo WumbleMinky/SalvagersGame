@@ -11,9 +11,9 @@ public class GameBoard : NetworkBehaviour
     public GameObject tilePrefab;
     public GameObject ghostTilePrefab;
     public TileLayout startingLayout;
-    public Dictionary<Vector2Int, GameTile> grid;
+    public Dictionary<Vector2Int, GameTile> grid = new Dictionary<Vector2Int, GameTile>();
     public List<Vector2Int> spaceCoords = new List<Vector2Int>();
-    Dictionary<GameObject, Vector2Int> ghostTiles;
+    Dictionary<GameObject, Vector2Int> ghostTiles = new Dictionary<GameObject, Vector2Int>();
     public List<Token> tokens = new List<Token>();
     public Token LootToken;
 
@@ -28,8 +28,8 @@ public class GameBoard : NetworkBehaviour
 
     void Start()
     {
-        grid = new Dictionary<Vector2Int, GameTile>();
-        ghostTiles = new Dictionary<GameObject, Vector2Int>();
+        //grid = new Dictionary<Vector2Int, GameTile>();
+        //ghostTiles = new Dictionary<GameObject, Vector2Int>();
         directionMap.Add(Vector2Int.up, Vector2Int.up); //Forward
         directionMap.Add(Vector2Int.right, Vector2Int.right); //Right
         directionMap.Add(Vector2Int.down, Vector2Int.down); //Back

@@ -13,22 +13,19 @@ public class GameManager : NetworkBehaviour
     List<Card> cardDeck;
     public GameBoard board;
 
-    [Header("UI Components")]
-    public GameObject connectionPanel;
-    public GameObject lobbyPanel;
-    public GameObject ingamePanel;
-    public Text infoTextField;
+    private ResourceContainer resources;
 
+    [Header("UI Components")]
+    public Text infoTextField;
+    public int totalPlayers = 0;
     private StartingBoardLayout startingBoardLayout;
 
     
-    private List<Text> lobbyTextFields = new List<Text>();
     private int tilesLeftToPlace = 0;
 
     private Dictionary<int, PlayerData> players = new Dictionary<int, PlayerData>();
     private Dictionary<int, CardPlay> playersCardChoices = new Dictionary<int, CardPlay>();
-    private List<int> playerTurnOrder = new List<int>();
-    private SyncListStringColor lobbyNames = new SyncListStringColor();
+    [SerializeField] private List<int> playerTurnOrder = new List<int>();
 
     private SyncNamedStatusDict playerStatus = new SyncNamedStatusDict();
 
@@ -54,8 +51,6 @@ public class GameManager : NetworkBehaviour
     [SyncVar(hook =nameof(updateInfoTextField))]
     public string infoText;
 
-    //public class SyncPlayersDict : SyncDictionary<int, GameObject> { }
-
     private int chosenPowerCount = 0;
     private Token LootToken;
     public GameObject LootPrefab;
@@ -65,8 +60,8 @@ public class GameManager : NetworkBehaviour
 
     private void Awake()
     {
-        lobbyNames.Callback += lobbyNamesUpdated;
         playerStatus.Callback += playerStatusUpdated;
+        resources = ResourceContainer.Instance;
     }
 
     private void playerStatusUpdated(SyncNamedStatusDict.Operation op, int key, string value)
@@ -83,25 +78,6 @@ public class GameManager : NetworkBehaviour
         else if (op == SyncNamedStatusDict.Operation.OP_SET)
         {
             inGamePlayerList[key].text = value;
-        }
-    }
-
-    private void lobbyNamesUpdated(SyncListStringColor.Operation op, int index, string oldVal, string newVal)
-    {
-        PlayerData pd = players[playerTurnOrder[index]];
-        if (op == SyncListString.Operation.OP_ADD)
-        {
-            //LobbyPlayerName lpn = Instantiate(UIReference.Instance.playerLobbyNamePrefab, UIReference.Instance.lobbyNamePanel.transform).GetComponent<LobbyPlayerName>();
-            pd.createLobbyName(index, newVal);
-            //lpn.text = newVal;
-            //lobbyTextFields.Add(lpn);
-            //lpn.transform.GetComponentInChildren<Image>().color = lobbyNames.getColor(index);
-            //RectTransform t = lpn.gameObject.GetComponent<RectTransform>();
-            //t.position -= t.up * t.rect.height * (lobbyTextFields.Count - 1);
-        } else if  (op == SyncListString.Operation.OP_SET)
-        {
-            //lobbyTextFields[index].text = newVal;
-            pd.updateLobbyName(newVal);
         }
     }
 
@@ -128,37 +104,43 @@ public class GameManager : NetworkBehaviour
     public void addPlayer(int connId, GameObject playerObject)
     {
         players.Add(connId, playerObject.GetComponent<PlayerData>());
-        players[connId].myColor = ResourceContainer.Instance.playerColors[players.Count-1].color;
         playerTurnOrder.Add(connId);
-        lobbyNames.Add(players[connId].playerName, players[connId].myColor);
+        if (isServer && players.Count == totalPlayers)
+        {
+            infoText = "Waiting for Players to Connect";
+            StartCoroutine(waitForPlayerConnection());
+        }
+            
     }
 
-    public bool isColorTaken(Color color)
+    IEnumerator waitForPlayerConnection()
     {
-        foreach(PlayerData pd in players.Values)
+        float maxTime = 10;
+        float waited = 0;
+        bool allConnected = false;
+        //Wait for all the players to be connected or for 10 seconds and then start the game.
+        while(waited < maxTime && !allConnected)
         {
-            if (pd.myColor == color)
-                return true;
+            yield return new WaitForSeconds(0.5f);
+            allConnected = true;
+            foreach(PlayerData pd in players.Values)
+            {
+                if (pd.connectionToClient == null)
+                {
+                    allConnected = false;
+                    break;
+                }
+            }
+            
+            waited += 0.5f;
         }
-        return false;
+        startGame();
+        yield return null;
     }
 
     public void startGame(bool force = false)
     {
-        bool allReady = true;
-        foreach(PlayerData pData in players.Values)
-        {
-            if (!pData.ready)
-            {
-                allReady = false;
-                break;
-            }
-        }
-
-        if (!allReady && !force)
-            return;
         currentPlayersTurn = playerTurnOrder[0];
-        RpcGameStarted();
         initializeTileDeck();
         createStartingBoard();
         tileDeck = shuffleDeck<TileLayout>(tileDeck);
@@ -173,74 +155,26 @@ public class GameManager : NetworkBehaviour
 
     }
 
-    [ClientRpc]
-    public void RpcGameStarted()
-    {
-        connectionPanel.SetActive(false);
-        lobbyPanel.SetActive(false);
-        ingamePanel.SetActive(true);
-    }
-
-    [Client]
-    public void gameStopped()
-    {
-        connectionPanel.SetActive(true);
-        lobbyPanel.SetActive(false);
-        ingamePanel.SetActive(false);
-    }
-
-
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        if (isServer || lobbyTextFields.Count > 0)
-            return;
-
-        //Initialize the lobby text fields for new clients.
-        for(int i = 0; i < lobbyNames.Count; i++)
-        {
-            //PlayerData pd = players[playerTurnOrder[i]];
-            //pd.createLobbyName(i, pd.playerName);
-            lobbyTextFields.Add(Instantiate(UIReference.Instance.playerLobbyNamePrefab, UIReference.Instance.lobbyNamePanel.transform).GetComponent<LobbyPlayerName>());
-            lobbyTextFields[i].text = lobbyNames[i];
-            lobbyTextFields[i].transform.GetComponentInChildren<Image>().color = lobbyNames.getColor(i);
-            RectTransform t = lobbyTextFields[i].GetComponent<RectTransform>();
-            t.position -= t.up * t.rect.height * i;
-        }
-    }
-
-    public void readyClick(NetworkConnection conn, bool ready, string playerName)
-    {
-        int index = playerTurnOrder.IndexOf(conn.connectionId);
-        string lobbyNameVal = playerName;
-        if (ready)
-            lobbyNameVal = lobbyNameVal + " ... [READY]";
-        lobbyNames[index] = lobbyNameVal;
-    }
-
     #endregion
 
     #region Make The Board
 
-    private void createStartingBoard()
+
+    public void setStartingBoard(int index)
     {
-        string dropdownText = UIReference.Instance.startingLayoutDropDown.options[UIReference.Instance.startingLayoutDropDown.value].text;
-        if (dropdownText.Equals("Random"))
+        if (index < 0) //Random Layout
         {
-            int boardIndex = UnityEngine.Random.Range(0, ResourceContainer.Instance.startingBoardLayouts.Count);
-            startingBoardLayout = ResourceContainer.Instance.startingBoardLayouts[boardIndex];
+            int randomIndex = UnityEngine.Random.Range(0, resources.startingBoardLayouts.Count);
+            startingBoardLayout = resources.startingBoardLayouts[randomIndex];
         }
         else
         {
-            foreach (StartingBoardLayout sbl in ResourceContainer.Instance.startingBoardLayouts)
-            {
-                if (sbl.displayName.Equals(dropdownText))
-                {
-                    startingBoardLayout = sbl;
-                    break;
-                }
-            }
+            startingBoardLayout = resources.startingBoardLayouts[index];
         }
+    }
+
+    private void createStartingBoard()
+    {
         board.addStartingTiles(startingBoardLayout);
         foreach (GameTile tile in board.grid.Values)
         {

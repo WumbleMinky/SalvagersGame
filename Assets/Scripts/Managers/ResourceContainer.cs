@@ -15,16 +15,6 @@ public class ResourceContainer : MonoBehaviour
         }
     }
 
-    //public Color[] playerColors = new Color[]
-    //{
-    //    Color.red,
-    //    Color.blue,
-    //    Color.green,
-    //    Color.magenta,
-    //    Color.white,
-    //    Color.yellow
-    //};
-
     [Serializable]
     public class PlayerColor
     {
@@ -51,6 +41,15 @@ public class ResourceContainer : MonoBehaviour
 
     public Dictionary<string, Card> allCards = new Dictionary<string, Card>();
     public Dictionary<string, TileLayout> tileLayoutDict = new Dictionary<string, TileLayout>();
+
+    public void Awake()
+    {
+        if (ResourceContainer.Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(this);
+    }
 
     public void Start()
     {

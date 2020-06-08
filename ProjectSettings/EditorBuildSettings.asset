@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SalvagerNetworkScene.unity
+    path: Assets/Scenes/ConnectionScene.unity
+    guid: baf0ac3f4d2cc7046825c5cb32990842
+  - enabled: 1
+    path: Assets/Scenes/LobbyScene.unity
+    guid: 3bbab59f62072714bbbd2f6415736367
+  - enabled: 1
+    path: Assets/Scenes/GameScene.unity
     guid: 8714406943c4ae1429e55e51d6d617ca
   m_configObjects: {}

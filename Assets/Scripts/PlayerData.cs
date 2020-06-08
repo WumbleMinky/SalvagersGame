@@ -21,14 +21,9 @@ public class PlayerData : NetworkBehaviour
     [SyncVar]
     public bool ready = false;
 
-    [SyncVar]
-    int playerId;
-
     public GameObject[] tileHand = new GameObject[5];
     public List<GameObject> cardHand = new List<GameObject>();
-    //player card hand
 
-    //public GameObject selectedCard;
     private LobbyPlayerName lobbyName;
     private GameBoard board;
     private GameManager gm;
@@ -46,6 +41,19 @@ public class PlayerData : NetworkBehaviour
     {
         board = GameObject.FindObjectOfType<GameBoard>();
         gm = GameObject.FindObjectOfType<GameManager>();
+        
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        if (gm == null)
+            gm = GameObject.FindObjectOfType<GameManager>();
     }
 
     public override void OnStartLocalPlayer()
@@ -54,23 +62,10 @@ public class PlayerData : NetworkBehaviour
         startLocalPlayerCallback?.Invoke(this);
     }
 
-    [Command]
-    public void CmdChangeColor(Color color)
-    {
-        if (!gm.isColorTaken(color))
-        {
-            myColor = color;
-        }
-    }
-
     private void colorChanged(Color oldColor, Color newColor)
     {
-        if (lobbyName != null)
-        {
-            lobbyName.transform.GetComponentInChildren<Image>().color = myColor;
-            
-        }
-            
+
+
     }
 
     #region Turn Control
@@ -91,37 +86,6 @@ public class PlayerData : NetworkBehaviour
             tc.setInteractable(myTurn);
         }
         tileEditPanel.SetActive(false);
-    }
-
-    #endregion
-
-    #region Lobby
-
-    [ClientRpc]
-    public void RpcHideStartButton()
-    {
-        UIReference.Instance.startGameButton.SetActive(false);
-    }
-
-    [Command]
-    public void CmdToggleReadyState()
-    {
-        ready = !ready;
-        gm.readyClick(connectionToClient, ready, playerName);
-    }
-
-    public void createLobbyName(int position, string value)
-    {
-        lobbyName = Instantiate(UIReference.Instance.playerLobbyNamePrefab, UIReference.Instance.lobbyNamePanel.transform).GetComponent<LobbyPlayerName>();
-        lobbyName.text = value;
-        lobbyName.transform.GetComponentInChildren<Image>().color = myColor;
-        RectTransform t = lobbyName.gameObject.GetComponent<RectTransform>();
-        t.position -= t.up * t.rect.height * (position);
-    }
-
-    public void updateLobbyName(string value)
-    {
-        lobbyName.text = value;
     }
 
     #endregion
