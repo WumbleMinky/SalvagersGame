@@ -13,8 +13,6 @@ public class Card : ScriptableObject
     public int cooldown;
     public bool choice;
 
-    public CardLogic logic;
-
     public GameObject createPrefab(Transform parent = null)
     {
         GameObject go = MonoBehaviour.Instantiate(prefab).gameObject;
@@ -29,6 +27,11 @@ public class Card : ScriptableObject
         }
         go.GetComponent<CardObject>().card = this;
         return go;
+    }
+
+    public CardLogic getLogic()
+    {
+        return prefab.GetComponent<CardLogic>();
     }
 }
 

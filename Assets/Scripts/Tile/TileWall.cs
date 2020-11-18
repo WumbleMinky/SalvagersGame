@@ -10,6 +10,7 @@ public class TileWall : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler
     GameTile parentTile;
     public Vector2Int direction;
     public bool isExterior = false;
+    public bool hasDock = false;
     public GameObject doorGO;
     public GameObject wallGO;
     private Collider myCollider;
@@ -51,6 +52,7 @@ public class TileWall : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler
     public void disablePointerDown()
     {
         myCollider.enabled = false;
+        UIReference.Instance.ObjectSelector.deselect();
     }
 
     public void setDirection(Vector2Int dir)

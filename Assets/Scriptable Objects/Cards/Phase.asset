@@ -16,4 +16,5 @@ MonoBehaviour:
   title: Phase
   description: 
   cooldown: 2
-  choice: 0
+  choice: 1
+  logic: {fileID: 0}

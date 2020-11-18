@@ -10,4 +10,6 @@ public class LootToken : Token
         base.OnStartClient();
         GameObject.FindObjectOfType<GameBoard>().LootToken = this;
     }
+
+    
 }

@@ -75,17 +75,26 @@ public class ObjectSelector : MonoBehaviour
         selectImage.gameObject.SetActive(true);
         renderers = new List<Renderer>();
         Renderer r = obj.GetComponent<Renderer>();
+        
         if (r != null)
             renderers.Add(r);
         foreach(Renderer rend in obj.GetComponentsInChildren<Renderer>())
         {
             renderers.Add(rend);
         }
-        selectedBounds = renderers[0].bounds;
-        foreach (Renderer rend in renderers)
+        if (renderers.Count > 0)
         {
-            selectedBounds.Encapsulate(rend.bounds);
+            selectedBounds = renderers[0].bounds;
+            foreach (Renderer rend in renderers)
+            {
+                selectedBounds.Encapsulate(rend.bounds);
+            }
         }
+        else
+        {
+            selectedBounds = obj.GetComponent<BoxCollider>().bounds;
+        }
+
     }
 
     public void deselect()

@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 3419551583681467133}
   - component: {fileID: 441765640513013091}
   - component: {fileID: 3269387296082180765}
+  - component: {fileID: 5196209292321444500}
   m_Layer: 5
   m_Name: Hold Card
   m_TagString: Untagged
@@ -234,6 +235,18 @@ MonoBehaviour:
   startingColor: {r: 0, g: 0, b: 0, a: 0}
   card: {fileID: 11400000, guid: b15f8b84e38cfdf4680c18e2bf5029ef, type: 2}
   cardImage: {fileID: 3079658734033561260}
+--- !u!114 &5196209292321444500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3419551583681467106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f84a89c4a85e242b6a49eec1ed2f8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4071902069804703507
 GameObject:
   m_ObjectHideFlags: 0

@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 2427214591003122905}
   - component: {fileID: 6375112290547052389}
   - component: {fileID: 7836942525186151088}
+  - component: {fileID: 7810583139967649373}
   m_Layer: 5
   m_Name: Phase Card
   m_TagString: Untagged
@@ -234,6 +235,18 @@ MonoBehaviour:
   startingColor: {r: 0, g: 0, b: 0, a: 0}
   card: {fileID: 11400000, guid: ae8b31fa2433ff44fb2db5c0633adf2a, type: 2}
   cardImage: {fileID: 1940679634151117410}
+--- !u!114 &7810583139967649373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2427214591003122886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d62a7936ee7d0449d84f2ea1024c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2718241130341052363
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,7 +34,6 @@ public class RoomPlayer : NetworkRoomPlayer
 
     public override void OnStopClient()
     {
-        Debug.Log("RoomPlayer.OnStopClient");
         SalvagerNetworkManager manager = (SalvagerNetworkManager)SalvagerNetworkManager.singleton;
         if (SceneManager.GetActiveScene().name == manager.GameplayScene)
             return;
@@ -65,7 +64,6 @@ public class RoomPlayer : NetworkRoomPlayer
             return;
         if (readyState)
         {
-            Debug.Log(lobbyName);
             lobbyName.text = playerName + readyString;
         }
         else

@@ -3,37 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System;
+using UnityEngine.Video;
+using System.Linq;
+using UnityEngine.UIElements;
 
 public class GameBoard : NetworkBehaviour
 {
     public GameObject compass;
     public float tileSize = 10f;
+
+    [Header("Prefabs")]
     public GameObject tilePrefab;
     public GameObject ghostTilePrefab;
-    public TileLayout startingLayout;
-    public Dictionary<Vector2Int, GameTile> grid = new Dictionary<Vector2Int, GameTile>();
+    public GameObject spaceTilePrefab;
+    public GameObject spaceshipPrefab;
+
+    [Header("Maps & Lists")]
     public List<Vector2Int> spaceCoords = new List<Vector2Int>();
+    public Dictionary<Vector2Int, GameTile> grid = new Dictionary<Vector2Int, GameTile>();
     Dictionary<GameObject, Vector2Int> ghostTiles = new Dictionary<GameObject, Vector2Int>();
+    Dictionary<Vector2Int, SpaceTile> spaceTiles = new Dictionary<Vector2Int, SpaceTile>();
     public List<Token> tokens = new List<Token>();
-    public Token LootToken;
-
-    [SerializeField] public GameTile unconfirmedTile;
-
-    [SyncVar]
-    public bool editingTile = false;
-
     private Dictionary<Vector2Int, Vector2Int> directionMap = new Dictionary<Vector2Int, Vector2Int>();
-
     public List<Vector2Int> docks = new List<Vector2Int>();
+    public Vector2Int dockedShipPos;
+
+    [Header("References")]
+    public TileLayout startingLayout;
+    public Token LootToken;
+    private GameObject spaceship;
+    [SerializeField] public GameTile unconfirmedTile;
+    [SyncVar] public bool editingTile = false;
+
+    public Vector2Int FORWARD { get { return directionMap[Vector2Int.up]; }}
+    public Vector2Int RIGHT { get { return directionMap[Vector2Int.right]; } }
+    public Vector2Int BACK { get { return directionMap[Vector2Int.down]; } }
+    public Vector2Int LEFT { get { return directionMap[Vector2Int.left]; } }
+
+    
 
     void Start()
     {
-        //grid = new Dictionary<Vector2Int, GameTile>();
-        //ghostTiles = new Dictionary<GameObject, Vector2Int>();
         directionMap.Add(Vector2Int.up, Vector2Int.up); //Forward
         directionMap.Add(Vector2Int.right, Vector2Int.right); //Right
         directionMap.Add(Vector2Int.down, Vector2Int.down); //Back
         directionMap.Add(Vector2Int.left, Vector2Int.left); //Left
+        directionMap.Add(Vector2Int.zero, Vector2Int.zero); //No move (for completeness)
 
     }
 
@@ -227,7 +242,6 @@ public class GameBoard : NetworkBehaviour
     {
         if (unconfirmedTile.invalid)
             return false;
-        //grid.Add(unconfirmedTile.gridPos, unconfirmedTile);
         addGhostTiles(unconfirmedTile.gridPos);
         setUnconfirmedTile(null);
         return true;
@@ -260,20 +274,50 @@ public class GameBoard : NetworkBehaviour
         return atLeastOneDoor;
     }
 
+    [Client]
+    public void clientAddSpaceTile(SpaceTile tile)
+    {
+        spaceCoords.Add(tile.gridPos);
+        spaceTiles.Add(tile.gridPos, tile);
+    }
+
+    [Client]
+    public void clientRemoveSpaceTile(SpaceTile tile)
+    {
+        spaceCoords.Remove(tile.gridPos);
+        spaceTiles.Remove(tile.gridPos);
+    }
+
     #endregion
+
+    #region Token Positions
 
     public GameObject getOpenTokenPosition(Vector2Int pos, bool randomPosition = false)
     {
         if (!hasTileAt(pos))
             return null;
         GameTile tile = grid[pos];
-        int totalPosition = tile.tokenPositions.Count;
+        return getTokenPosition(tile.tokenPositions, randomPosition);
+    }
+
+    public GameObject getOpenSpaceTokenPosition(Vector2Int pos, bool randomPosition = false)
+    {
+        if (!hasSpaceAt(pos))
+            return null;
+
+        SpaceTile tile = spaceTiles[pos];
+        return getTokenPosition(tile.tokenPositions, randomPosition);
+    }
+
+    private GameObject getTokenPosition(List<GameObject> positions, bool randomPosition = false)
+    {
         int index;
+        int totalPosition = positions.Count;
         if (randomPosition)
             index = UnityEngine.Random.Range(0, totalPosition);
         else
             index = 0;
-        GameObject tokenPosGO = tile.tokenPositions[index];
+        GameObject tokenPosGO = positions[index];
         int attempts = 1;
         bool validPos;
 
@@ -295,12 +339,17 @@ public class GameBoard : NetworkBehaviour
             }
             if (validPos)
                 break;
-            tokenPosGO = tile.tokenPositions[(index + 1) % totalPosition];
+            index = (index + 1) % totalPosition;
+            tokenPosGO = positions[index];
             attempts++;
         }
 
         return tokenPosGO;
     }
+
+    #endregion
+
+    #region Token Methods
 
     public void addToken(Token token, bool isLoot = false)
     {
@@ -309,12 +358,150 @@ public class GameBoard : NetworkBehaviour
             LootToken = token;
     }
 
+    public void updateTokenPosition(Token token, Vector2Int newPosition, GameObject tilePositionGO)
+    {
+        if (!hasTileAt(newPosition) && token.spaceRounds == 0)
+            return;
+
+        if (hasTileAt(token.boardPosition))
+            getTileAt(token.boardPosition).removeToken(token);
+        if (hasSpaceAt(token.boardPosition))
+            spaceTiles[token.boardPosition].removeToken(token);
+        token.setBoardPosition(newPosition, tilePositionGO);
+        if (hasTileAt(newPosition))
+            getTileAt(newPosition).addToken(token);
+        if (hasSpaceAt(newPosition))
+            spaceTiles[newPosition].addToken(token);
+
+        if (token is PlayerToken)
+        {
+            PlayerToken pt = (PlayerToken)token;
+            if (pt.getPlayer() != null && pt.getPlayer().hasLoot)
+            {
+                LootToken.setBoardPosition(newPosition);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Tile Methods
+
     public GameTile getTileAt(Vector2Int pos)
     {
         if (!hasTileAt(pos))
             return null;
         return grid[pos];
     }
+
+    public bool hasTileAt(Vector2Int pos)
+    {
+        return grid.ContainsKey(pos);
+    }
+
+    public void setCheckTileMouseDown(bool enable)
+    {
+        foreach (Vector2Int tilePos in grid.Keys)
+        {
+            if (distanceToTile(tilePos, LootToken.boardPosition) < RuleManager.Instance.distanceToLoot)
+                continue;
+            GameTile gt = grid[tilePos];
+            if (enable)
+                gt.RpcEnableWallMouseDown();
+            else
+                gt.RpcDisableWallMouseDown();
+        }
+
+    }
+
+    public int distanceToTile(Vector2Int fromCoords, Vector2Int toCoords)
+    {
+        Queue<Vector2Int> q = new Queue<Vector2Int>();
+        Dictionary<Vector2Int, int> visited = new Dictionary<Vector2Int, int>();
+
+        int dist = 0;
+        visited.Add(fromCoords, dist);
+        q.Enqueue(fromCoords);
+        while (q.Count > 0)
+        {
+            Vector2Int current = q.Dequeue();
+            dist = visited[current];
+            if (current.Equals(toCoords))
+                return dist;
+
+            foreach (Vector2Int dir in VectorUtils.cardinalDirections)
+            {
+                if (grid.ContainsKey(current) && grid[current].isSideADoor(dir) && !visited.ContainsKey(current + dir))
+                {
+                    visited.Add(current + dir, dist + 1);
+                    q.Enqueue(current + dir);
+                }
+            }
+        }
+        return -1;
+    }
+
+    public GameTile adjacentTile(Vector2Int position, Vector2Int direction)
+    {
+        Vector2Int realDirection = getBoardDirection(direction);
+        if (hasTileAt(position) && hasTileAt(position + realDirection))
+        {
+            return getTileAt(position + realDirection);
+        }
+        return null;
+    }
+
+    public List<List<Vector2Int>> getPathsToTile(Vector2Int start, Vector2Int goal)
+    {
+        Queue<List<Vector2Int>> q = new Queue<List<Vector2Int>>();
+        List<List<Vector2Int>> foundPaths = new List<List<Vector2Int>>();
+        List<Vector2Int> path = new List<Vector2Int>();
+        path.Add(start);
+        q.Enqueue(path);
+        int foundLength = int.MaxValue;
+        while(q.Count > 0)
+        {
+            path = q.Dequeue();
+            if (path.Count > foundLength)
+                break;
+
+            Vector2Int current = path.Last();
+            if (current.Equals(goal))
+            {
+                if (foundLength > path.Count)
+                {
+                    foundPaths.Clear();
+                    foundLength = path.Count;
+                }
+                    
+                foundPaths.Add(path);
+                continue;
+            }
+            foreach(Vector2Int dir in VectorUtils.cardinalDirections)
+            {
+                List<Vector2Int> tmpPath = new List<Vector2Int>(path);
+                GameTile t = getTileAt(current + dir);
+                bool isNull = t == null;
+                bool isDoor = false;
+                bool pathContains = false;
+                if (!isNull)
+                {
+                    isDoor = t.isSideADoor(-dir);
+                    pathContains = path.Contains(current + dir);
+                }
+                if (!isNull && isDoor && !pathContains)
+                {
+                    tmpPath.Add(current + dir);
+                    q.Enqueue(tmpPath);
+                }
+            }
+        }
+        return foundPaths;
+    }
+
+    #endregion
+
+    #region Direction Methods
 
     public Vector2Int getBoardDirection(Vector2Int dir)
     {
@@ -351,61 +538,43 @@ public class GameBoard : NetworkBehaviour
         }
     }
 
-    public bool hasTileAt(Vector2Int pos)
+    #endregion
+
+    public bool hasOpening(Vector2Int tileA, Vector2Int tileB)
     {
-        return grid.ContainsKey(pos);
+        bool tileAOpen = tileOpenInDir(tileA, tileB - tileA);
+        bool tileBOpen = tileOpenInDir(tileB, tileA - tileB);
+
+        return tileAOpen && tileBOpen;
     }
 
-    private void Update()
+    public bool tileOpenInDir(Vector2Int tilePos, Vector2Int dir)
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            
-        }
+        GameTile gTileA = getTileAt(tilePos);
+        
+        if (gTileA != null)
+            return gTileA.isSideADoor(dir);
+        else if (hasSpaceAt(tilePos))
+            return true;
+        else
+            return false;
     }
 
-    public void setCheckTileMouseDown(bool enable)
+    public void setSpaceWalking(bool enable)
     {
-        foreach(Vector2Int tilePos in grid.Keys)
+        foreach(Vector2Int pos in spaceTiles.Keys)
         {
-            if (distanceToTile(tilePos, LootToken.boardPosition) < 4)
-                continue;
-            GameTile gt = grid[tilePos];
-            if (enable)
-                gt.RpcEnableWallMouseDown();
-            else
-                gt.RpcDisableWallMouseDown();
-        }
-
-    }
-
-    public int distanceToTile(Vector2Int fromCoords, Vector2Int toCoords)
-    {
-        Queue<Vector2Int> q = new Queue<Vector2Int>();
-        Dictionary<Vector2Int, int> visited = new Dictionary<Vector2Int, int>();
-
-        int dist = 0;
-        visited.Add(fromCoords, dist);
-        q.Enqueue(fromCoords);
-        while(q.Count > 0)
-        {
-            Vector2Int current = q.Dequeue();
-            dist = visited[current];
-            if (current.Equals(toCoords))
+            foreach (Vector2Int dir in VectorUtils.cardinalDirections)
             {
-                return dist;
-            }
-
-            foreach(Vector2Int dir in VectorUtils.cardinalDirections)
-            {
-                if (grid.ContainsKey(current) && grid[current].isSideADoor(dir) && !visited.ContainsKey(current+dir))
+                GameTile tile = getTileAt(pos + dir);
+                if (tile != null && tile.isSideADoor(-dir))
                 {
-                    visited.Add(current + dir, dist+1);
-                    q.Enqueue(current + dir);
+                    spaceTiles[pos].setSpaceWalking(enable);
+                    break;
                 }
             }
+            
         }
-        return -1;
     }
 
     [ClientRpc]
@@ -416,7 +585,7 @@ public class GameBoard : NetworkBehaviour
             GameTile gt = grid[tilePos];
             foreach(TileWall tw in gt.tileSides.Values)
             {
-                if (tw.isExterior && distanceToTile(LootToken.boardPosition, tilePos) >= 4)
+                if (tw.isExterior && distanceToTile(LootToken.boardPosition, tilePos) >= RuleManager.Instance.distanceToLoot)
                 {
                     tw.changeColor(color);
                 }
@@ -444,7 +613,7 @@ public class GameBoard : NetworkBehaviour
         GameTile tile;
         if (grid.TryGetValue(tilePos, out tile))
         {
-            if (distanceToTile(tilePos, LootToken.boardPosition) >= 4 && !tile.dock.activeSelf)
+            if (distanceToTile(tilePos, LootToken.boardPosition) >= RuleManager.Instance.distanceToLoot && !tile.dock.activeSelf)
             {
                 docks.Add(tilePos);
                 tile.setDock(wallDir);
@@ -500,15 +669,26 @@ public class GameBoard : NetworkBehaviour
                 foreach(Vector2Int dir in new Vector2Int[] { up, right, down, left })
                 {
                     if (grid.ContainsKey(pos + dir))
-                    {
                         grid[pos + dir].RpcSetWallAsExterior(-dir, true);
-                    }
                 }
             }
             if (!grid.ContainsKey(pos))
             {
                 spaceCoords.Add(pos);
+                spawnSpaceTile(pos);
             }
+        }
+    }
+
+    private void spawnSpaceTile(Vector2Int pos)
+    {
+        if (!spaceTiles.ContainsKey(pos))
+        {
+            GameObject go = Instantiate(spaceTilePrefab, new Vector3(pos.x * tileSize, 0, pos.y * tileSize), Quaternion.identity, transform);
+            SpaceTile tile = go.GetComponent<SpaceTile>();
+            tile.gridPos = pos;
+            NetworkServer.Spawn(go);
+            spaceTiles.Add(pos, tile);
         }
     }
 
@@ -569,4 +749,36 @@ public class GameBoard : NetworkBehaviour
     }
 
     #endregion
+
+    public bool hasSpaceAt(Vector2Int pos)
+    {
+        return spaceCoords.Contains(pos);
+    }
+
+    public void spawnShipAt(Vector2Int pos)
+    {
+        if (!docks.Contains(pos))
+            return;
+
+        GameTile tile = getTileAt(pos);
+        Vector2Int dir = tile.getDockWallDir();
+        if (dir == Vector2Int.zero)
+            return;
+
+        if (hasSpaceAt(pos + dir))
+        {
+            Quaternion rot;
+            if (dir == FORWARD)
+                rot = Quaternion.Euler(0, -90, 0);
+            else if (dir == LEFT)
+                rot = Quaternion.Euler(0, 180, 0);
+            else if (dir == BACK)
+                rot = Quaternion.Euler(0, 90, 0);
+            else
+                rot = Quaternion.identity;
+            dockedShipPos = pos + dir;
+            spaceship = Instantiate(spaceshipPrefab, spaceTiles[pos + dir].transform.position, rot);
+            NetworkServer.Spawn(spaceship);
+        }
+    }
 }

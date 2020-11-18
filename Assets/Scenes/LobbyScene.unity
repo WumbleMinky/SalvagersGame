@@ -2850,21 +2850,31 @@ MonoBehaviour:
   - name: Red
     color: {r: 1, g: 0.01792916, b: 0, a: 1}
     sprite: {fileID: 21300000, guid: d1089e38fea37b644ad5a74b4f26ccca, type: 3}
+    textColor: {r: 1, g: 1, b: 1, a: 1}
   - name: Blue
     color: {r: 0, g: 0.023826122, b: 1, a: 1}
     sprite: {fileID: 21300000, guid: 350b5d06435209a4e9d55bd1a4df9912, type: 3}
+    textColor: {r: 1, g: 1, b: 1, a: 1}
   - name: Green
     color: {r: 0, g: 0.8396226, b: 0.02164504, a: 1}
     sprite: {fileID: 21300000, guid: 74241391a395e184eac8c62bf5db8670, type: 3}
+    textColor: {r: 0, g: 0, b: 0, a: 1}
   - name: Magenta
     color: {r: 1, g: 0, b: 0.93442965, a: 1}
     sprite: {fileID: 21300000, guid: 9b058f4ccbf16cc49930e781cf6329d3, type: 3}
+    textColor: {r: 1, g: 1, b: 1, a: 1}
   - name: White
     color: {r: 1, g: 1, b: 1, a: 1}
     sprite: {fileID: 21300000, guid: 1fbf35c4e59f36e40b76fb90009ea80a, type: 3}
+    textColor: {r: 0, g: 0, b: 0, a: 1}
   - name: Yellow
     color: {r: 0.9866247, g: 1, b: 0, a: 1}
     sprite: {fileID: 21300000, guid: cb3332f5712bc494b8da68d0ffaaf127, type: 3}
+    textColor: {r: 0, g: 0, b: 0, a: 1}
+  droneColors:
+  - {r: 0.7264151, g: 0.0795493, b: 0, a: 1}
+  - {r: 0.07755798, g: 0, b: 0.6886792, a: 1}
+  - {r: 0, g: 0.5283019, b: 0.012349957, a: 1}
   securityStationTile: {fileID: 11400000, guid: abfcd1fa22a7b3f4095657945c60174d,
     type: 2}
   tileLayouts:
@@ -2896,6 +2906,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b15f8b84e38cfdf4680c18e2bf5029ef, type: 2}
   - {fileID: 11400000, guid: 1fbd474fb53bac548ba7273955b441c9, type: 2}
   - {fileID: 11400000, guid: c8a403913e80a654883f2c025b0554da, type: 2}
+  noAction: {fileID: 11400000, guid: fe4245c8b31f52f4fa4bbb958aa542ff, type: 2}
+  testCard01: {fileID: 11400000, guid: ec29f62131abf234bb6bd02baf8e805c, type: 2}
+  testCard02: {fileID: 11400000, guid: f8916a80afea6974dadc21fe0cc85ca3, type: 2}
 --- !u!4 &1581720124
 Transform:
   m_ObjectHideFlags: 0

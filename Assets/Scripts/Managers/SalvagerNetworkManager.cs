@@ -117,12 +117,10 @@ public class SalvagerNetworkManager : NetworkRoomManager
         {
             if (NetworkServer.localClientActive)
             {
-                Debug.Log("Stopping Host");
                 this.StopHost();
             }
             else
             {
-                Debug.Log("Stopping Client");
                 this.StopClient(); 
             }
         }

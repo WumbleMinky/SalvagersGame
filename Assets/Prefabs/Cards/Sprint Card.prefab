@@ -307,6 +307,7 @@ GameObject:
   - component: {fileID: 4957555205884987806}
   - component: {fileID: -7863291284864296799}
   - component: {fileID: 6176337513904858194}
+  - component: {fileID: 81581850226562504}
   m_Layer: 5
   m_Name: Sprint Card
   m_TagString: Untagged
@@ -366,6 +367,18 @@ MonoBehaviour:
   startingColor: {r: 0, g: 0, b: 0, a: 0}
   card: {fileID: 11400000, guid: ec29f62131abf234bb6bd02baf8e805c, type: 2}
   cardImage: {fileID: 2389095580416550764}
+--- !u!114 &81581850226562504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4957555205884987805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8defb7e49ebb7d488cac43a4c19d5bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5909626639714193377
 GameObject:
   m_ObjectHideFlags: 0

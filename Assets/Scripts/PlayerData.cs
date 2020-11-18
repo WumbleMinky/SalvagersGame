@@ -10,26 +10,53 @@ public class PlayerData : NetworkBehaviour
     public delegate void onLocalPlayerStart(PlayerData pd);
     public static event onLocalPlayerStart startLocalPlayerCallback;
 
+    private static PlayerData _local_inst;
+
+    public static PlayerData LocalPlayer {
+        get
+        {
+            if (_local_inst != null)
+                return _local_inst;
+            return null;
+        }
+    }
+
     public GameObject playerHandPanel;
     public GameObject tileEditPanel;
     public GameObject powerChoicePanel;
+
     [SyncVar]
     public string playerName;
-    [SyncVar(hook = nameof(colorChanged))] 
+    [SyncVar(hook = nameof(colorChanged))]
     public Color myColor = Color.white;
 
     [SyncVar]
     public bool ready = false;
+    [SyncVar]
+    public int id;
 
     public GameObject[] tileHand = new GameObject[5];
     public List<GameObject> cardHand = new List<GameObject>();
 
-    private LobbyPlayerName lobbyName;
     private GameBoard board;
     private GameManager gm;
     bool myTurn = false;
     public bool cardFocused = false;
-    public Token myToken;
+    public PlayerToken myToken;
+
+    [SyncVar]
+    public bool hasLoot = false;
+    [SyncVar]
+    public bool hasItem = false;
+    [SyncVar(hook = nameof(stunnedChanged))]
+    public bool stunned = false;
+    public int stunCount = 0;
+
+    [SyncVar]
+    public bool caught = false;
+
+    private CardSelection cardSelect;
+    Card actionCard;
 
     private void Awake()
     {
@@ -41,7 +68,7 @@ public class PlayerData : NetworkBehaviour
     {
         board = GameObject.FindObjectOfType<GameBoard>();
         gm = GameObject.FindObjectOfType<GameManager>();
-        
+        cardSelect = CardSelection.Instance;
     }
 
     public override void OnStartClient()
@@ -52,14 +79,29 @@ public class PlayerData : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
+        id = connectionToClient.connectionId;
         if (gm == null)
             gm = GameObject.FindObjectOfType<GameManager>();
+
     }
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
         startLocalPlayerCallback?.Invoke(this);
+        _local_inst = this;
+    }
+
+    private void OnDestroy()
+    {
+        GameTile.WallSelectDelegate -= wallSelected;
+    }
+
+    private void stunnedChanged(bool oldVal, bool newVal)
+    {
+        myToken.stunned = newVal;
+        if (oldVal != newVal && newVal)
+            stunCount = 0;
     }
 
     private void colorChanged(Color oldColor, Color newColor)
@@ -102,7 +144,7 @@ public class PlayerData : NetworkBehaviour
     public void TargetTileHandUpdated(NetworkConnection target, TileLayout[] hand)
     {
         CardSelection.Instance.addTileCards(hand);
-        CardSelection.onTilePlayedDelegate += tilePlaced;  //TODO: replace this back with CmdTilePlaced...maybe
+        CardSelection.onTilePlayedDelegate += CmdTilePlaced;  //TODO: replace this back with CmdTilePlaced...maybe
         CardSelection.onTilePlayedDelegate += ShowEditTilePanel;
         CardSelection.onTileConfirmedDelegate += CmdConfirmTile;
         CardSelection.NoCardSelectedDelegate += HideEditTilePanel;
@@ -114,7 +156,7 @@ public class PlayerData : NetworkBehaviour
         {
             CmdTilePlaced(ghostTile, layout);
         }
-        
+
     }
 
     [Command]
@@ -195,7 +237,7 @@ public class PlayerData : NetworkBehaviour
     [TargetRpc]
     public void TargetProvidedPowerChoices(NetworkConnection connection, Card[] powers)
     {
-        CardSelection.onTilePlayedDelegate -= tilePlaced;
+        CardSelection.onTilePlayedDelegate -= CmdTilePlaced;
         CardSelection.onTilePlayedDelegate -= ShowEditTilePanel;
         CardSelection.onTileConfirmedDelegate -= CmdConfirmTile;
         CardSelection.NoCardSelectedDelegate -= HideEditTilePanel;
@@ -232,6 +274,134 @@ public class PlayerData : NetworkBehaviour
 
     #endregion
 
+
+    #region Actions
+
+
+    [ClientRpc]
+    public void RpcDeselectActions()
+    {
+        if (!isLocalPlayer)
+            return;
+        cardSelect.deselectCards();
+    }
+
+    [ClientRpc]
+    public void RpcChooseActionPhase()
+    {
+        if (!isLocalPlayer)
+            return;
+        CardSelection.CardSelectedDelegate -= CmdLootMoveCardConfirmed;
+        CardSelection.CardSelectedDelegate += ActionCardConfirmed;
+        cardSelect.deselectCards();
+        cardSelect.enableAllCards();
+    }
+
+    private void ActionCardConfirmed(Card card)
+    {
+        actionCard = card;
+        CardSelection.CardSelectedDelegate -= ActionCardConfirmed;
+        if (card.choice)
+        {
+            cardSelect.movePreviewBehind();
+            cardSelect.enableOnlyMovementCards();
+            CardSelection.CardSelectedDelegate += ChoiceCardConfirmed;
+            //move the action card preview to the 
+        }
+        else
+        {
+            CmdConfirmAction(card);
+        }
+
+    }
+
+    private void ChoiceCardConfirmed(Card card)
+    {
+        CardSelection.CardSelectedDelegate -= ChoiceCardConfirmed;
+        CmdConfirmChoice(actionCard, card);
+    }
+
+    [Command]
+    private void CmdConfirmAction(Card card)
+    {
+        gm.actionSelected(connectionToClient, card);
+    }
+
+    [Command]
+    private void CmdConfirmChoice(Card actionCard, Card choiceCard)
+    {
+        gm.actionAndChoiceSelected(connectionToClient, actionCard, choiceCard);
+    }
+
+    #endregion
+
+
+    #region Conflicts
+
+    [ClientRpc]
+    public void RpcHideConflictPanel()
+    {
+        UIReference.Instance.conflictPanel.gameObject.SetActive(false);
+    }
+
+    [ClientRpc]
+    public void RpcShowConflictPanel(string leftName, bool leftIsDrone, string RightName, bool rightIsDrone)
+    {
+        ConflictPanel cp = UIReference.Instance.conflictPanel;
+        cp.gameObject.SetActive(true);
+        cp.Clear();
+        cp.setCombatant1(leftName, leftIsDrone);
+        cp.setCombatant2(RightName, rightIsDrone);
+    }
+
+    [TargetRpc]
+    public void TargetShowDiceButton(NetworkConnection connection, int buttonSide)
+    {
+        ConflictPanel cp = UIReference.Instance.conflictPanel;
+        cp.activateSideRollButton(buttonSide);
+        ConflictPanel.OnRollClickedDelegate += conflictRollButtonClicked;
+    }
+
+    private void conflictRollButtonClicked(int side)
+    {
+        UIReference.Instance.conflictPanel.LeftRollButton.SetActive(false);
+        UIReference.Instance.conflictPanel.RightRollButton.SetActive(false);
+        ConflictPanel.OnRollClickedDelegate -= conflictRollButtonClicked;
+        CmdRollClicked(side);
+    }
+
+    [Command]
+    public void CmdRollClicked(int side)
+    {
+        gm.rollConflict(side);
+    }
+
+    #endregion
+
+    #region Spacewalking
+
+    [TargetRpc]
+    public void TargetSpaceWalkingChooseEntry()
+    {
+        board.setSpaceWalking(true);
+        SpaceTile.SpaceClickedDelegate += spaceClicked;
+    }
+
+    private void spaceClicked(Vector2Int pos)
+    {
+        board.setSpaceWalking(false);
+        SpaceTile.SpaceClickedDelegate -= spaceClicked;
+        CmdSpaceClicked(pos);
+    }
+
+    [Command]
+    private void CmdSpaceClicked(Vector2Int pos)
+    {
+        gm.selectSpaceEntry(id, pos);
+    }
+
+    #endregion
+
     private void wallSelected(GameTile tile, TileWall wall)
     {
         //Called via a Delegate on the TileWall class. Passes the data to the server for verification then passed back by RPC for visuals.
@@ -252,4 +422,5 @@ public class PlayerData : NetworkBehaviour
         board.getTileAt(tilePos).tileSides[wallDirection].changeColor(Color.red);
     }
 
+    
 }

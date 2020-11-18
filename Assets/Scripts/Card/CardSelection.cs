@@ -30,6 +30,7 @@ public class CardSelection : MonoBehaviour
     public static event CardSelected CardSelectedDelegate;
 
     public GameObject previewPanel;
+    public GameObject behindPreviewPanel;
     public GameObject confirmCardButton;
 
     TileLayout selectedLayout;
@@ -57,9 +58,23 @@ public class CardSelection : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        foreach(CardObject c in cardsInHand)
+        {
+            c.OnClickDelegate -= OnClickCard;
+            c.OnClickAwayDelegate -= OnClickCardAway;
+        }
+    }
+
     public void showConfirmCardButton()
     {
         confirmCardButton.SetActive(true);
+    }
+
+    public void hideConfirmCardButton()
+    {
+        confirmCardButton.SetActive(false);
     }
 
     public void OnClickCard(CardObject cardObj, Card card)
@@ -69,8 +84,8 @@ public class CardSelection : MonoBehaviour
         selectedCard = card;
         selectedCardGO = cardObj.gameObject;
         cardObj.SelectCard();
-        previewPanel.SetActive(true);
-        previewPanel.GetComponent<Image>().sprite = cardObj.image.sprite;
+        previewCard(cardObj);
+        showConfirmCardButton();
     }
 
     public void OnClickCardAway()
@@ -82,12 +97,22 @@ public class CardSelection : MonoBehaviour
             Vector2 localRT = rt.InverseTransformPoint(Input.mousePosition);
             if (!rt.rect.Contains(localRT))
             {
-                selectedCardGO.GetComponent<CardObject>().DeselectCard();
-                selectedCard = null;
-                selectedCardGO = null;
-                previewPanel.SetActive(false);
+                deselectCards();
+                hideConfirmCardButton();
             }
         }
+    }
+
+    public void previewCard(CardObject cardObj)
+    {
+        previewPanel.SetActive(true);
+        previewPanel.GetComponent<Image>().sprite = cardObj.image.sprite;
+    }
+
+    public void movePreviewBehind()
+    {
+        behindPreviewPanel.SetActive(true);
+        behindPreviewPanel.GetComponent<Image>().sprite = previewPanel.GetComponent<Image>().sprite;
     }
 
     public void confirmCardSelection()
@@ -95,6 +120,7 @@ public class CardSelection : MonoBehaviour
         if (selectedCard == null)
             return;
         disableAllCards();
+        hideConfirmCardButton();
         CardSelectedDelegate?.Invoke(selectedCard);
     }
 
@@ -136,6 +162,15 @@ public class CardSelection : MonoBehaviour
     public void enableAllCards()
     {
         setCardInteractive(true);
+    }
+
+    public void deselectCards()
+    {
+        selectedCardGO?.GetComponent<CardObject>().DeselectCard();
+        selectedCard = null;
+        selectedCardGO = null;
+        previewPanel.SetActive(false);
+        behindPreviewPanel.SetActive(false);
     }
 
     #endregion
@@ -208,7 +243,7 @@ public class CardSelection : MonoBehaviour
     {
         if (selectedLayout != null)
         {
-            onTilePlayedDelegate(ghostTile, selectedLayout);
+            onTilePlayedDelegate?.Invoke(ghostTile, selectedLayout);
         }
     }
 

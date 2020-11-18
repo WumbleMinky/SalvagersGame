@@ -11,13 +11,13 @@ public class GameTile : NetworkBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public delegate void WallSelect(GameTile tile, TileWall wall);
     public static event WallSelect WallSelectDelegate;
-    
+
     public GameBoard board;
     public float rotateDuration = 0.5f;
     public Dictionary<Vector2Int, TileWall> tileSides;
     private bool rotating = false;
 
-    [SyncVar(hook =nameof(updateLayout))]
+    [SyncVar(hook = nameof(updateLayout))]
     public TileLayout layout = null;
     [SyncVar]
     public Vector2Int gridPos = Vector2Int.zero;
@@ -32,8 +32,8 @@ public class GameTile : NetworkBehaviour, IPointerEnterHandler, IPointerExitHand
     public List<GameObject> tokenPositions;
     public List<GameObject> jailTokenPositions;
 
-    //public LayerMask tileMask;
-    //public LayerMask wallMask;
+    public List<Token> tokens = new List<Token>();
+
     private Collider myCollider;
 
     void Awake()
@@ -44,6 +44,39 @@ public class GameTile : NetworkBehaviour, IPointerEnterHandler, IPointerExitHand
         tileSides.Add(Vector2Int.right, transform.Find("Right Side").GetComponent<TileWall>());
         tileSides.Add(Vector2Int.down, transform.Find("Back Side").GetComponent<TileWall>());
         myCollider = GetComponent<Collider>();
+    }
+
+    public List<PlayerToken> getPlayerTokens()
+    {
+        List<PlayerToken> pTokens = new List<PlayerToken>();
+        foreach (PlayerToken t in tokens)
+        {
+            if (t.type == Token.TokenType.player)
+                pTokens.Add(t);
+        }
+        return pTokens;
+    }
+
+    public List<Token> getDroneTokens()
+    {
+        List<Token> pTokens = new List<Token>();
+        foreach (Token t in tokens)
+        {
+            if (t.type == Token.TokenType.drone)
+                pTokens.Add(t);
+        }
+        return pTokens;
+    }
+
+    public List<Token> getPlayerAndDroneTokens()
+    {
+        List<Token> pTokens = new List<Token>();
+        foreach (Token t in tokens)
+        {
+            if (t.type == Token.TokenType.player || t.type == Token.TokenType.drone)
+                pTokens.Add(t);
+        }
+        return pTokens;
     }
 
     public override void OnStartClient()
@@ -142,7 +175,16 @@ public class GameTile : NetworkBehaviour, IPointerEnterHandler, IPointerExitHand
 
     #endregion
 
+    public void removeToken(Token token)
+    {
+        tokens.Remove(token);
+    }
 
+    public void addToken(Token token)
+    {
+        if (!tokens.Contains(token))
+            tokens.Add(token);
+    }
 
     public void setDoor(Vector2Int direction)
     {
@@ -158,13 +200,6 @@ public class GameTile : NetworkBehaviour, IPointerEnterHandler, IPointerExitHand
     public void RpcSetWallAsExterior(Vector2Int direction, bool val)
     {
         tileSides[direction].isExterior = val;
-        //if (val)
-        //{
-        //    foreach(Renderer rend in tileSides[direction].getActive().GetComponentsInChildren<Renderer>())
-        //    {
-        //        rend.material.color = Color.white;
-        //    }
-        //}
     }
 
     public bool isSideADoor(Vector2Int dir)
@@ -235,6 +270,17 @@ public class GameTile : NetworkBehaviour, IPointerEnterHandler, IPointerExitHand
             dock.transform.SetParent(tileSides[wallDir].transform);
             dock.transform.localRotation = Quaternion.identity;
             tileSides[wallDir].activateWall();
+            tileSides[wallDir].hasDock = true;
         }
+    }
+
+    public Vector2Int getDockWallDir()
+    {
+        foreach(Vector2Int side in tileSides.Keys)
+        {
+            if (tileSides[side].hasDock)
+                return side;
+        }
+        return Vector2Int.zero;
     }
 }

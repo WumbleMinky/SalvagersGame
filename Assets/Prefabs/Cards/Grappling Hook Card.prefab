@@ -436,6 +436,7 @@ GameObject:
   - component: {fileID: 6837495330660809514}
   - component: {fileID: 3769902542692221166}
   - component: {fileID: -5009939999138391173}
+  - component: {fileID: -9148120717340166226}
   m_Layer: 5
   m_Name: Grappling Hook Card
   m_TagString: Untagged
@@ -495,3 +496,15 @@ MonoBehaviour:
   startingColor: {r: 0, g: 0, b: 0, a: 0}
   card: {fileID: 11400000, guid: f8916a80afea6974dadc21fe0cc85ca3, type: 2}
   cardImage: {fileID: 1467779480618213635}
+--- !u!114 &-9148120717340166226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837495330660809525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054c95004d532d3478ee031bbc2da7fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

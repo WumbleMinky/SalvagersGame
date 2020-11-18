@@ -206,4 +206,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  boardPosition: {x: 0, y: 0}
   canSpace: 0
+  type: 2

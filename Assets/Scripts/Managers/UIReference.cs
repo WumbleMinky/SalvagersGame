@@ -16,18 +16,6 @@ public class UIReference : MonoBehaviour
         }
     }
 
-    //[Header("Main Game UI Panels")]
-    //public GameObject ConnectionPanel;
-    //public GameObject LobbyPanel;
-    //public GameObject InGamePanel;
-
-    //[Header("Lobby Elements")]
-    //public GameObject startGameButton;
-    //public GameObject lobbyNamePanel;
-    //public GameObject playerLobbyNamePrefab;
-    //public Dropdown startingLayoutDropDown;
-    //public Dropdown playerColorDropdown;
-
     [Header("In Game Elements")]
     public GameObject powerSelectionPanel;
     public GameObject tileEditPanel;
@@ -35,4 +23,10 @@ public class UIReference : MonoBehaviour
     public GameObject playerStatusPanel;
     public GameObject playerStatusTextPrefab;
     public ObjectSelector ObjectSelector;
+    public ConflictPanel conflictPanel;
+
+    [Header("Ship Events")]
+    public ShipEventPanel shipEventPanel;
+    public string incomingShipEvent = "Ship Event Incoming";
+    public string shipEvent01 = "DOOOM!";
 }
